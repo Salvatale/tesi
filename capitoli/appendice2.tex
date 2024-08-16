@@ -1,0 +1,1866 @@
+\section{Codice in dart dell'applicazione Flutter}
+\subsection{Pagine}
+\begin{lstlisting}[style=pythonstyle,caption={Codice di main.dart}, label={lst:main}]
+import 'package:chatbot/services/auth/auth_gate.dart';
+import 'package:flutter/material.dart';
+import 'package:chatbot/themes/light_mode.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:chatbot/firebase_options.dart';
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(const MyApp());
+}
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+  // This widget is the root of the application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home : const AuthGate(),
+      theme: lightMode,
+    );
+  }
+}
+\end{lstlisting}
+\begin{lstlisting}[style=pythonstyle,caption={Codice del login\_page.dart}, label={lst:login}]
+import "package:chatbot/services/auth/auth_service.dart";
+import "package:chatbot/components/my_button.dart";
+import "package:chatbot/components/my_textfield.dart";
+import "package:chatbot/services/user/user_string_list.dart";
+import "package:flutter/material.dart";
+class LoginPage  extends StatelessWidget{
+  //email and pw text controllers
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _pwController = TextEditingController();
+  // tap to go register page
+  final void Function()? onTap;
+  LoginPage({
+    super.key,
+    required this.onTap,
+    });
+  //login method
+  void login(BuildContext context) async {
+    // auth service
+    final authService = AuthService();
+    // try login
+    try{
+      await authService.signInWithEmailPassword(_emailController.text, _pwController.text);
+    }
+    catch(e){
+      showDialog(
+        context: context, 
+        builder: (context) => AlertDialog(
+          title: Text(e.toString()),
+        )
+      );
+    }
+    final userId = authService.getCurrentUserID();
+    try{
+      await UserStringList.initializeUserList(userId);
+    }
+    catch(e){
+      showDialog(
+        context: context, 
+        builder: (context) => AlertDialog(
+          title: Text(e.toString()),
+        )
+      );
+    }
+  }
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            //logo
+            Icon(
+              Icons.message,
+              size: 60,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            const SizedBox(height: 50),
+            //Welcomeback message
+            Text(
+              "Welcome back, you've been missed!",
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.primary,
+                fontSize: 16,
+                ),
+              ),
+            const SizedBox(height: 25),
+            //email textfield
+            MyTextField(
+              hintText: "Email",
+              obscureText: false,
+              controller: _emailController,
+            ),
+            const SizedBox(height: 10),
+            //password textfield
+            MyTextField(
+              hintText: "Password",
+              obscureText: true,
+              controller: _pwController,
+            ),
+            const SizedBox(height: 25),
+            //login button
+            MyButton(
+              text: "Login",
+              onTap: () => login(context),
+            ),
+            const SizedBox(height: 25),
+            //register now
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Not a member? "),
+                GestureDetector(
+                  onTap: onTap,
+                  child: Text(
+                    "Register now", style: TextStyle(fontWeight: FontWeight.bold),))
+              ],
+            ),
+          ],
+        )
+      )
+    );
+  }
+}
+\end{lstlisting}
+\begin{lstlisting}[style=pythonstyle,caption={Codice del register\_page.py}, label={lst:register}]
+    import 'package:chatbot/services/auth/auth_service.dart';
+    import 'package:chatbot/components/my_button.dart';
+    import 'package:chatbot/components/my_textfield.dart';
+    import 'package:flutter/material.dart';
+    class RegisterPage extends StatelessWidget {
+      final TextEditingController _emailController = TextEditingController();
+      final TextEditingController _pwController = TextEditingController();
+      final TextEditingController _confirmPController = TextEditingController();
+      final void Function()? onTap;
+      RegisterPage({
+        super.key,
+        required this.onTap
+      });
+      //register method
+      void register(BuildContext context) async{
+        //get auth service
+        final _auth = AuthService();
+        if(_pwController.text == _confirmPController.text){
+          try{
+            await _auth.signUpWithEmailPassword(_emailController.text, _pwController.text);
+          } catch(e){
+            showDialog(
+            context: context, 
+            builder: (context) => AlertDialog(
+              title: Text(e.toString()),
+            )
+            );
+          }
+        }
+        else {
+          showDialog(
+            context: context, 
+            builder: (context) => const AlertDialog(
+              title: Text("Passwords don't match!"),
+            )
+          );
+        }
+        // final userId = _auth.getCurrentUserID();
+        // try{
+        //   await UserStringList.createUserList(userId);
+        // }
+        // catch(e){
+        //   showDialog(
+        //     context: context, 
+        //     builder: (context) => AlertDialog(
+        //       title: Text(e.toString()),
+        //     )
+        //   );
+        // }
+      }
+      @override
+      Widget build(BuildContext context){
+        return Scaffold(
+          backgroundColor: Theme.of(context).colorScheme.background,
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                //logo
+                Icon(
+                  Icons.message,
+                  size: 60,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                const SizedBox(height: 50),
+                //Welcomeback message
+                Text(
+                  "Let's create an account for you",
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
+                    fontSize: 16,
+                    ),
+                  ),
+                const SizedBox(height: 25),
+                //email textfield
+                MyTextField(
+                  hintText: "Email",
+                  obscureText: false,
+                  controller: _emailController,
+                ),
+                const SizedBox(height: 10),
+                //password textfield
+                MyTextField(
+                  hintText: "Password",
+                  obscureText: true,
+                  controller: _pwController,
+                ),
+                const SizedBox(height: 10),
+                MyTextField(
+                  hintText: "Confirm password", 
+                  obscureText: true, 
+                  controller: _confirmPController,
+                ),
+                const SizedBox(height: 25),
+                //login button
+                MyButton(
+                  text: "Register",
+                  onTap: () => register(context),
+                ),
+                const SizedBox(height: 25),
+                //register now
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Already have an account? "),
+                    GestureDetector(
+                      onTap: onTap,
+                      child: const Text("Login now", style: TextStyle(fontWeight: FontWeight.bold),))
+                  ],
+                ),
+              ],
+            )
+          )
+        );
+      }
+    }
+    \end{lstlisting}
+    \begin{lstlisting}[style=pythonstyle,caption={Codice del home\_page.dart}, label={lst:home}]
+    import 'package:chatbot/components/my_choice_button.dart';
+import 'package:chatbot/components/my_drawer.dart';
+import 'package:chatbot/pages/chatbot_page.dart';
+import 'package:chatbot/pages/document_uploader_page.dart';
+import 'package:chatbot/pages/mail_chatbot_page.dart';
+import 'package:chatbot/pages/speechbot_page.dart';
+import 'package:chatbot/services/auth/auth_service.dart';
+import 'package:chatbot/services/user/user_string_list.dart';
+import 'package:flutter/material.dart';
+class ChoicePage extends StatefulWidget{
+  const ChoicePage({
+    super.key,    
+  });
+  @override
+  State<ChoicePage> createState() => _ChoicePageState();
+}
+class _ChoicePageState extends State<ChoicePage>{
+  @override
+  void initState() {
+    super.initState();
+    initList();
+  }
+  void initList() async{
+    try{
+      await UserStringList.initializeUserList(AuthService().getCurrentUserID());
+    }
+    catch(e){
+      showDialog(
+        context: context, 
+        builder: (context) => AlertDialog(
+          title: Text(e.toString()),
+        )
+      );
+    }
+  }
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Main Page"),
+      ),
+      drawer: const MyDrawer(),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            MyChoiceButton(
+              text: "C H A T B O T", 
+              page: const HomePage(), 
+              icon: const Icon(Icons.chat, size: 30.0,),
+            ),
+            MyChoiceButton(
+              text: "M A I L B O T", 
+              page: MailChatbotPage(), 
+              icon: const Icon(Icons.email, size: 30.0,),
+            ),
+            MyChoiceButton(
+              text: "D O C  U P L O A D E R", 
+              page: DocumentUploaderPage(), 
+              icon: const Icon(Icons.upload_file, size: 30.0,),
+            ),
+            MyChoiceButton(
+              text: "S P E E C H B O T", 
+              page: SpeechBotPage(), 
+              icon: const Icon(Icons.mic, size: 30.0,),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+\end{lstlisting}
+\begin{lstlisting}[style=pythonstyle,caption={Codice del chatbot\_page.dart}, label={lst:chatbot}]
+import 'package:chatbot/components/my_chat.dart';
+import 'package:chatbot/services/auth/auth_service.dart';
+import 'package:flutter/material.dart';
+class HomePage extends StatelessWidget {
+  const HomePage({
+    super.key,
+  });
+  void logout(){
+    // get auth service
+    final _auth = AuthService();
+    _auth.signOut();
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Chatbot"),
+        actions: [
+          //logout button
+          IconButton(
+            onPressed: logout,
+            icon: const Icon(Icons.logout)
+          ),
+        ],
+      ),
+      body: const MyChatBot(),
+    );
+  }
+}
+\end{lstlisting}
+\begin{lstlisting}[style=pythonstyle,caption={Codice del mail\_chatbot\_page.dart}, label={lst:mailchatbot}]
+import 'package:chatbot/components/my_mail_chat.dart';
+import 'package:flutter/material.dart';
+class MailChatbotPage extends StatelessWidget {
+  Widget build(BuildContext context){
+    return Scaffold(
+      body: const MyMailChat(),
+    );
+  }
+}
+\end{lstlisting}
+\begin{lstlisting}[style=pythonstyle,caption={Codice del document\_uploader\_page.dart}, label={lst:documentuploader}]
+import 'package:chatbot/services/doc_uploader/my_html_uploader.dart';
+import 'package:chatbot/services/doc_uploader/my_pdf_uploader.dart';
+import 'package:flutter/material.dart';
+class DocumentUploaderPage extends StatefulWidget{
+  @override
+  State<DocumentUploaderPage> createState() => _DocumentUploaderPageState();
+}
+class _DocumentUploaderPageState extends State<DocumentUploaderPage>{
+  Widget _selectedPage = Container();
+  void _changePage(Widget page){
+    setState(() {
+      _selectedPage = page;
+    });
+  }
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Document Uploader"),
+      ),
+      body: Row(
+        children: [
+          Expanded(
+            flex: 5,  
+            child: ListView(
+              children: [
+                ListTile(
+                  title: const Text('P D F  U P L O A D E R'),
+                  onTap: () => _changePage(const MyPdfUploader()),
+                ),
+                ListTile(
+                  title: const Text('H T M L P A G E U P L O A D E R'),
+                  onTap: () =>_changePage(MyHtmlUploader()),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            width: 1.0,
+            color: Colors.black,
+          ),
+          Expanded(
+            flex: 3,
+            child: _selectedPage,
+          ),
+        ],
+      ),
+    );
+  }
+}
+\end{lstlisting}
+\begin{lstlisting}[style=pythonstyle,caption={Codice del speechbot\_page.dart}, label={lst:speechbot}]
+import 'package:chatbot/components/my_text_to_speech.dart';
+import 'package:flutter/material.dart';
+class SpeechBotPage extends StatelessWidget{
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      body: const MyTextToSpeech(),
+    );
+  }
+}
+\end{lstlisting}
+\section{Componenti}
+\begin{lstlisting}[style=pythonstyle,caption={Codice del my\_appbar.dart}, label={lst:appbar}]
+import 'package:flutter/material.dart';
+class MyAppBar extends StatelessWidget implements PreferredSizeWidget{
+  final void Function()? onTap;
+  final String title;
+  final Icon icon;
+  const MyAppBar({
+    super.key,
+    required this.onTap,
+    required this.title,
+    required this.icon,
+  });
+  @override
+  Widget build(BuildContext context){
+    return AppBar(
+      title: Text(
+        title,
+        style: const TextStyle(fontSize: 30.0),
+      ),
+      actions: [
+        IconButton(
+          onPressed: onTap,
+          icon: icon,
+          iconSize: 50,
+        )
+      ],
+    );
+  }
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
+\end{lstlisting}
+\begin{lstlisting}[style=pythonstyle,caption={Codice del my\_button.dart}, label={lst:button}]
+import 'package:flutter/material.dart';
+class MyButton extends StatelessWidget {
+  final void Function()? onTap;
+  final String text;
+  const MyButton({
+    super.key,
+    required this.text,
+    required this.onTap,
+    });
+  @override
+  Widget build(BuildContext context){
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.primary,
+          borderRadius: BorderRadius.circular(8)
+        ),
+        padding: EdgeInsets.all(25),
+        margin: EdgeInsets.symmetric(horizontal: 25),
+        child: Center(
+          child: Text(text),
+          ),
+      ),
+    );
+  }
+}
+\end{lstlisting}
+\begin{lstlisting}[style=pythonstyle,caption={Codice del mya\_chat.dart}, label={lst:chat}]
+import 'dart:convert';
+import 'package:chatbot/components/my_dropdown_menu.dart';
+import 'package:chatbot/components/my_messages.dart';
+import 'package:chatbot/components/my_textfield.dart';
+import 'package:chatbot/services/auth/auth_service.dart';
+import 'package:flutter/material.dart';
+import 'package:chatbot/services/http/my_http.dart';
+class MyChatBot extends StatefulWidget{
+  const MyChatBot({
+    super.key,
+  });
+  @override
+  State<MyChatBot> createState() => _MyChatBotState();
+}
+class _MyChatBotState extends State<MyChatBot> {
+  final TextEditingController _textController = TextEditingController();
+  final List<String> _messages = ['Ciao, sono il tuo Chatbot, come posso esserti utile?'];
+  String selectedContext = '';
+  void selectContext(String context){
+    setState(() {
+      selectedContext = context;
+    });
+  }
+  void _handleSubmitted(BuildContext context) async{
+    String text = _textController.text;
+    _textController.clear();
+    setState(() {
+      _messages.add(text);
+    });
+    if(selectedContext.isEmpty){
+      _messages.add("Scegli almeno un contesto!!");
+      return;
+    }
+    MyHtpp myHtpp = MyHtpp();
+    AuthService authService = AuthService();
+    try{
+      final response = await myHtpp.post(text,authService.getCurrentUserID(),selectedContext);
+      final json = jsonDecode(response.body) as Map<String,dynamic>;
+      text = json['message'];
+      setState(() {
+        _messages.add(text);
+      });
+    }
+    catch(e){
+      showDialog(
+        context: context, 
+        builder: (context) => AlertDialog(
+          title: Text(e.toString()),
+        )
+      );
+    }
+  }
+  Widget _buildTextComposer() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Row(
+        children: [
+          Expanded(
+            child: MyTextField(
+              controller: _textController,
+              obscureText: false,
+              hintText: 'Type something to ask..',
+            ),
+          ),
+          IconButton(
+            onPressed: () => _handleSubmitted(context),
+            icon: const Icon(Icons.send))
+        ],
+      ),
+    );
+  }
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      body: Center(
+        child: Row(
+          children: [
+            Expanded(
+              flex: 8,
+              child: Column(
+                children: [
+                  Expanded(
+                    child :Column(
+                      children: [
+                        Flexible(
+                          child: MyMessages(messages: _messages),
+                        ),
+                        const Divider(height: 1.0),
+                        _buildTextComposer(),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              width: 1.0,
+              color: Colors.black,
+            ),
+            Expanded(
+              flex: 2,
+              child: MyDropdownMenu(selectItem: selectContext,),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+} 
+\end{lstlisting}
+\begin{lstlisting}[style=pythonstyle,caption={Codice del my\_choice\_button.dart}, label={lst:choicebutton}]
+import 'package:flutter/material.dart';
+class MyChoiceButton extends StatelessWidget {
+  final String text;
+  final Widget page;
+  final Icon icon;
+  const MyChoiceButton({
+    super.key,
+    required this.text,
+    required this.page,
+    required this.icon,
+  });
+  @override
+  Widget build(BuildContext context){
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
+      child: ElevatedButton.icon(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(Colors.blueAccent),
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+          padding : MaterialStateProperty.all<EdgeInsets>(
+            const EdgeInsets.symmetric(horizontal: 30, vertical: 15),  
+          ),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+          ),
+        ),
+        onPressed: () {
+          Navigator.push(
+            context, 
+            MaterialPageRoute(builder: (context) => page),
+          );
+        }, 
+        icon: icon, 
+        label: Text(
+          text,
+          style: const TextStyle(fontSize: 20),
+        ),
+      ),
+    );
+  }
+}
+\end{lstlisting}
+\begin{lstlisting}[style=pythonstyle,caption={Codice del my\_drawer.dart}, label={lst:drawer}]
+import 'package:chatbot/services/auth/auth_service.dart';
+import 'package:chatbot/pages/settings_page.dart';
+import 'package:flutter/material.dart';
+class MyDrawer extends StatelessWidget {
+  const MyDrawer({
+    super.key,
+  });
+  void logout(){
+    // get auth service
+    final _auth = AuthService();
+    _auth.signOut();
+  }
+  @override
+  Widget build(BuildContext context){
+    return Drawer(
+      backgroundColor: Theme.of(context).colorScheme.background,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            children: [
+              //logo
+              DrawerHeader(
+                child: Center(
+                  child: Icon(
+                    Icons.message,
+                    color: Theme.of(context).colorScheme.primary,
+                    size: 64,
+                  ),
+                ),
+              ),
+              // home list tile
+              Padding(
+                padding: const EdgeInsets.only(left: 25.0),
+                child: ListTile(
+                  title: const Text("H O M E"),
+                  leading: const Icon(Icons.home),
+                  onTap: () {
+                    //pop the drawer
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+              //settings list tile
+              Padding(
+                padding: const EdgeInsets.only(left: 25.0),
+                child: ListTile(
+                  title: const Text("S E T T I N G S"),
+                  leading: const Icon(Icons.settings),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SettingsPage(),
+                      )
+                    );
+                  },
+                ),
+              ),
+            // //MailChatbot list tile
+            //   Padding(
+            //     padding: const EdgeInsets.only(left: 25.0),
+            //     child: ListTile(
+            //       title: const Text("M A I L  C H A T B O T"),
+            //       leading: const Icon(Icons.mail),
+            //       onTap: () {
+            //         Navigator.pop(context);
+            //         Navigator.push(
+            //           context,
+            //           MaterialPageRoute(
+            //             builder: (context) => MailChatbotPage(),
+            //           )
+            //         );
+            //       },
+            //     ),
+            //   ),
+              // Padding(
+              //   padding: const EdgeInsets.only(left: 25.0),
+              //   child: ListTile(
+              //     title: const Text("D O C  C H A T B O T"),
+              //     leading: const Icon(Icons.insert_drive_file),
+              //     onTap: () {
+              //       Navigator.pop(context);
+              //       Navigator.push(
+              //         context,
+              //         MaterialPageRoute(
+              //           builder: (context) => const DocumentChatbotPage(),
+              //         )
+              //       );
+              //     },
+              //   ),
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.only(left: 25.0),
+              //   child: ListTile(
+              //     title: const Text("S P E E C H B O T"),
+              //     leading: const Icon(Icons.headset),
+              //     onTap: () {
+              //       Navigator.pop(context);
+              //       Navigator.push(
+              //         context,
+              //         MaterialPageRoute(
+              //           builder: (context) => SpeechBotPage(),
+              //         )
+              //       );
+              //     },
+              //   ),
+              // ),
+            ],
+          ),
+          //logout list tile
+          Padding(
+            padding: const EdgeInsets.only(left: 25.0,bottom: 25.0),
+            child: ListTile(
+              title: const Text("L O G O U T"),
+              leading: const Icon(Icons.logout),
+              onTap: logout,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+\end{lstlisting}
+\begin{lstlisting}[style=pythonstyle,caption={Codice del my\_dropdown\_menu.dart}, label={lst:dropdownmenu}]
+import 'package:chatbot/services/auth/auth_service.dart';
+import 'package:chatbot/services/user/user_string_list.dart';
+import 'package:flutter/material.dart';
+class MyDropdownMenu extends StatefulWidget{
+  final void Function(String)? selectItem;
+  const MyDropdownMenu({
+    super.key,
+    required this.selectItem,
+  });
+  @override
+  State<MyDropdownMenu> createState() => _MyDropdownMenuState();
+}
+class _MyDropdownMenuState extends State<MyDropdownMenu>{
+  String selectedItem = '';
+  late void Function(String)? selectItem;
+  List<String> menu = UserStringList().getUserList(AuthService().getCurrentUserID());
+  @override
+  void initState(){
+    super.initState();
+    selectItem = widget.selectItem;
+  }
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      body: ListView.builder(
+        itemCount: menu.length ,
+        itemBuilder: (context, index){
+          return GestureDetector(
+            onTap: () {
+              setState(() {
+                selectedItem = menu[index];
+              });
+              selectItem?.call(menu[index]);
+            },
+            child: Container(
+              color: selectedItem == menu[index]
+                ? Colors.grey.withOpacity(0.3)
+                : Colors.transparent
+              ,
+              child: ListTile(
+                title: Text(
+                  menu[index],
+                  style : TextStyle(
+                    color: selectedItem == menu[index]
+                      ? Colors.blue
+                      : Colors.black,
+                  ),
+                ),
+                leading: IconButton(
+                  icon: const Icon(Icons.close),
+                  onPressed: () {
+                    UserStringList userList = UserStringList();
+                    userList.removeUserElement(AuthService().getCurrentUserID(), index);
+                    if(selectedItem == menu[index]){
+                      setState(() {
+                        selectedItem = '';
+                      });
+                      selectItem?.call('');
+                    }
+                  },
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+\end{lstlisting}
+\begin{lstlisting}[style=pythonstyle,caption={Codice del my\_mail\_chat.dart}, label={lst:mailchat}]
+import 'package:chatbot/components/my_button.dart';
+import 'package:chatbot/components/my_dropdown_menu.dart';
+import 'package:chatbot/components/my_textfield.dart';
+import 'package:chatbot/services/http/my_http.dart';
+import 'package:flutter/material.dart';
+class MyMailChat extends StatefulWidget{
+  const MyMailChat({super.key});
+  @override
+  State<MyMailChat> createState() => _MyMailChatState();
+}
+class _MyMailChatState extends State<MyMailChat> {
+  final TextEditingController _mailController = TextEditingController();
+  final TextEditingController _questionController = TextEditingController();
+  String selectedContext = '';
+  void selectContext(String context){
+    setState(() {
+      selectedContext = context;
+    });
+  }
+  void sendMail(BuildContext context) async{
+    MyHtpp myHtpp = MyHtpp();
+    String mailText = _mailController.text;
+    String questionText = _questionController.text;
+    _mailController.clear();
+    _questionController.clear();
+    try{
+      await myHtpp.mailPost(questionText, mailText);
+    }
+    catch(e){
+      showDialog(
+        context: context, 
+        builder: (context) => AlertDialog(
+          title: Text(e.toString()),
+        )
+      );
+    }
+  }
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("MailChatbot"),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+      ),
+      backgroundColor: Theme.of(context).colorScheme.secondary,
+      body: Center(
+        child: Row(
+          children: [
+            Expanded(
+              flex: 8,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  //logo Icon
+                  const Icon(
+                    Icons.email,
+                    size: 60,
+                  ),
+                  const SizedBox(height: 30,),
+                  //text
+                  Text(
+                    "Welcome, insert email and question, you will receive the answer by mail",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(height: 30,),
+                  // email textfield
+                  MyTextField(
+                    hintText: "Email",
+                    obscureText: false,
+                    controller: _mailController,
+                  ),
+                  const SizedBox(height: 10,),
+                  //question textfield
+                  MyTextField(
+                    hintText: "Question",
+                    obscureText: false,
+                    controller: _questionController
+                  ),
+                  const SizedBox(height: 25,),
+                  // send mail button
+                  MyButton( 
+                    text: "Enter",
+                    onTap: () => sendMail(context))
+                ],
+              ),
+            ),
+            Container(
+              width: 1.0,
+              color: Colors.black,
+            ),
+            Expanded(
+              flex: 2,
+              child: MyDropdownMenu(selectItem: selectContext,),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+\end{lstlisting}
+\begin{lstlisting}[style=pythonstyle,caption={Codice del my\_messages.dart}, label={lst:messages}]
+import 'package:flutter/material.dart';
+class MyMessages extends StatelessWidget{
+  final List<String> messages;
+  const MyMessages({
+    super.key,
+    required this.messages,
+  });
+  @override
+  Widget build(BuildContext context){
+    return ListView.separated(
+      padding: const EdgeInsets.all(8.0),
+      //reverse: true,
+      itemCount: messages.length,
+      separatorBuilder: (BuildContext context, int index){
+        return const SizedBox(height: 10,);
+      },
+      itemBuilder: (BuildContext context,int index) {
+        Color bubbleColor = index % 2 == 0 ? Colors.blue[100]! : Colors.green[100]!;
+        Alignment alignment = index % 2 == 0 ? Alignment.centerLeft : Alignment.centerRight;
+        return Align(
+          alignment: alignment,
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            margin: const EdgeInsets.symmetric(horizontal: 20),
+            decoration: BoxDecoration(
+              color: bubbleColor,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Text(
+              messages[index],
+              style: const TextStyle(fontSize: 16),
+            )
+          ),
+        );
+      },
+    );
+  }
+}
+\end{lstlisting}
+\begin{lstlisting}[style=pythonstyle,caption={Codice del my\_speech\_messages.dart}, label={lst:speechmessages}]
+import 'package:chatbot/services/chat/message.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+class MySpeechMessages extends StatelessWidget{
+  final List<Message> messages;
+  final FlutterTts _flutterTts = FlutterTts();
+  MySpeechMessages({
+    super.key,
+    required this.messages,
+  });
+  Future<void> speak(String text, BuildContext context) async {
+    try{
+      await _flutterTts.setLanguage('it-IT');
+      await _flutterTts.setPitch(1.0);
+      await _flutterTts.setSpeechRate(1.0);
+      await _flutterTts.speak(text);
+    }
+    catch(e){
+      showDialog(
+        context: context, 
+        builder: (context) => AlertDialog(
+          title: Text(e.toString()),
+        )
+      );
+    }
+  }
+  Future<void> pause() async {
+    await _flutterTts.pause();
+  }
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      body: ListView.builder(
+        itemCount: messages.length,
+        itemBuilder: (context,index){
+          Message message = messages[index];
+          return message.isVoice
+            ? VoiceMessageItem(message: message, speak: speak, pause: pause)
+            : TextMessageItem(message: message);
+        }
+      ),
+    );
+  }
+}
+class VoiceMessageItem extends StatelessWidget {
+  final Message message;
+  final Function(String,BuildContext) speak;
+  final Function pause;
+  const VoiceMessageItem({
+    super.key,
+    required this.message,
+    required this.speak,
+    required this.pause,
+  });
+  @override
+  Widget build(BuildContext context){
+    return ListTile(
+      title: Row(
+        children: [
+          const Icon(Icons.keyboard_voice),
+          const SizedBox(width: 8,),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(8),
+              ),
+              padding: EdgeInsets.all(8),
+              child: Row(
+                children: [
+                  const Expanded(
+                    child: Text("Messaggio vocale"),
+                  ),
+                  const SizedBox(width: 8,),
+                  IconButton(
+                    onPressed: () => speak(message.text,context), 
+                    icon: Icon(Icons.play_arrow),
+                  ),
+                  IconButton(
+                    onPressed: () => pause(), 
+                    icon: const Icon(Icons.pause),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+      //onTap: () => speak(message.text,context),
+    );
+  }
+}
+class TextMessageItem extends StatelessWidget{
+  final Message message;
+  const TextMessageItem({
+    super.key,
+    required this.message,
+  });
+  @override
+  Widget build(BuildContext context){
+    return ListTile(
+      title: Text(message.text),
+    );
+  }
+}
+\end{lstlisting}
+\begin{lstlisting}[style=pythonstyle,caption={Codice del my\_text\_to\_speech.dart}, label={lst:texttospeech}]
+import 'dart:convert';
+import 'package:chatbot/components/my_dropdown_menu.dart';
+import 'package:chatbot/components/my_speech_messages.dart';
+import 'package:chatbot/services/auth/auth_service.dart';
+import 'package:chatbot/services/chat/message.dart';
+import 'package:chatbot/services/http/my_http.dart';
+import 'package:flutter/material.dart';
+import 'package:speech_to_text/speech_recognition_result.dart';
+import 'package:speech_to_text/speech_to_text.dart';
+class MyTextToSpeech extends StatefulWidget{
+  const MyTextToSpeech({super.key});
+  @override
+  State<MyTextToSpeech> createState() => _MyTextToSpeechState();
+}
+class _MyTextToSpeechState extends State<MyTextToSpeech>{
+  final SpeechToText _speechToText = SpeechToText();
+  String _speech = '';
+  bool isListening = false;
+  final List<Message> _messages = [];
+  String _context = '';
+  @override
+  void initState(){
+    super.initState();
+    _initSpeech();
+    String text = "Sono il tuo Speechbot, registra un'audio per cominciare a chattare";
+    Message message = Message(text: text, isVoice: true);
+    _messages.add(message);
+  }
+  void _initSpeech() async{
+    await _speechToText.initialize();
+    setState(() {});
+  }
+  void selectContext(String selectedContext){
+    setState(() {
+      _context = selectedContext;
+    });
+  }
+  void _startListening() async {
+    try{
+      if(!isListening){
+        await _speechToText.listen(onResult: _onSpeechResult);
+        setState(() {
+          isListening = true;
+        });
+      }
+    }
+    catch(e){
+      showDialog(
+        context: context, 
+        builder: (context) => AlertDialog(
+          title: Text(e.toString()),
+        )
+      );
+    }
+  }
+  void _stopListening() async {
+    try{
+      if(isListening){
+        await _speechToText.stop();
+        setState(() {
+          isListening = false;
+        });
+      }
+    }
+    catch(e){
+      showDialog(
+        context: context, 
+        builder: (context) => AlertDialog(
+          title: Text(e.toString()),
+        )
+      );
+    }
+    Message message = Message(text: _speech, isVoice: false);
+    setState(() {
+      _messages.add(message);
+    });
+    await _post();
+  }
+  void _onSpeechResult(SpeechRecognitionResult result){
+    try{
+      setState(() {
+      _speech = result.recognizedWords;
+      });
+    }
+    catch(e){
+      showDialog(
+        context: context, 
+        builder: (context) => AlertDialog(
+          title: Text(e.toString()),
+        )
+      );
+    }
+  }
+  Future<void> _post() async {
+    MyHtpp myHtpp = MyHtpp();
+    try{
+      final response = await myHtpp.post(_speech, AuthService().getCurrentUserID(), _context);
+      final json = jsonDecode(response.body) as Map<String,dynamic>;
+      String text = json['message'];
+      Message message = Message(text: text, isVoice: true);
+      setState(() {
+        _speech = "";
+        _messages.add(message);
+      });
+    }
+    catch(e){
+    showDialog(
+      context: context, 
+      builder: (context) => AlertDialog(
+        title: Text(e.toString()),
+      )
+      );
+    }
+  }
+  @override
+  Widget build(BuildContext contex){
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("SpeechBot"),
+      ),
+      body: Center(
+        child: Row(
+          children: [
+            Expanded(
+              flex: 8,
+              child :Column(
+                children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Flexible(child: MySpeechMessages(messages: _messages)),
+                        const Divider(height: 1.0,),
+                        FloatingActionButton(
+                          onPressed: 
+                            !isListening ? _startListening : _stopListening,
+                          tooltip: 'Rec',
+                          child: Icon(isListening ? Icons.mic_off : Icons.mic),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              width: 1.0,
+              color: Colors.black,
+            ),
+            Expanded(
+              flex: 2,
+              child: MyDropdownMenu(selectItem: selectContext,),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+\end{lstlisting}
+\begin{lstlisting}[style=pythonstyle,caption={Codice del my\_textfield.dart}, label={lst:textfield}]
+import 'package:flutter/material.dart';
+class MyTextField extends StatelessWidget {
+  final String hintText;
+  final bool obscureText;
+  final TextEditingController controller;
+  const MyTextField({
+    super.key,
+    required this.hintText,
+    required this.obscureText,
+    required this.controller,
+  });
+  @override
+  Widget build(BuildContext context){
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+      child: TextField(
+        obscureText: obscureText,
+        controller: controller,
+        decoration: InputDecoration(
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Theme.of(context).colorScheme.tertiary)
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Theme.of(context).colorScheme.primary)
+          ),
+          fillColor: Theme.of(context).colorScheme.secondary,
+          filled: true,
+          hintText: hintText,
+          hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary)
+        ),
+      ),
+    );
+  }
+}
+\end{lstlisting}
+\begin{lstlisting}[style=pythonstyle,caption={Codice del pdf\_page\_body.dart}, label={lst:pdfpagebody}]
+import 'package:chatbot/components/my_chat.dart';
+import 'package:chatbot/services/doc_uploader/my_pdf_uploader.dart';
+import 'package:flutter/material.dart';
+class PdfPageBody extends StatefulWidget{
+  const PdfPageBody({super.key});
+  @override
+  State<PdfPageBody> createState() => _PdfPageBodyState();
+}
+class _PdfPageBodyState extends State<PdfPageBody>{
+  String selectedItem = '';
+  void selectItem(String item){
+    setState(() {
+      selectedItem = item;
+    });
+  }
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      body: Center(
+        child: Row(
+          children: [
+            Expanded(
+              flex: 8,
+              child: const MyChatBot()
+            ),
+            Container(
+              width: 1,
+              color: Colors.black,
+            ),
+            Expanded(
+              flex: 2,
+              child: const MyPdfUploader(),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+\end{lstlisting}
+\subsection{Servizi}
+\begin{lstlisting}[style=pythonstyle,caption={Codice del auth\_gate.dart}, label={lst:authgate}]
+import 'package:chatbot/pages/choice_page.dart';
+import 'package:chatbot/services/auth/login_or_register.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+class AuthGate extends StatelessWidget {
+  const AuthGate({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder : (context, snapshot) {
+          // user logged in
+          if( snapshot.hasData ){
+            return const ChoicePage();
+          }
+          // user is not logged in
+          else{
+            return const LoginOrRegister();
+          }
+        }
+      ),
+    );
+  }
+}
+\end{lstlisting}
+\begin{lstlisting}[style=pythonstyle,caption={Codice del auth\_service.dart}, label={lst:authservice}]
+import 'package:firebase_auth/firebase_auth.dart';
+class AuthService {
+  // Instance of auth
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  //sign in
+  Future<UserCredential> signInWithEmailPassword(String email,password) async{
+    try{
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return userCredential;
+    } on FirebaseAuthException catch(e){
+      throw Exception(e.code);
+    }
+  }
+  // sign up
+  Future<UserCredential> signUpWithEmailPassword( String email, password) async {
+    try{
+      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password
+      );
+      return userCredential;
+    } on FirebaseAuthException catch(e) {
+      throw Exception(e.code);
+    }
+  }
+  // sign out
+  Future<void> signOut() async {
+    return await _auth.signOut();
+  }
+  String getCurrentUserID(){
+    User? user = _auth.currentUser;
+    if(user != null){
+      return user.uid;
+    }
+    else{
+      throw Exception("User not logged in");
+    }
+  }
+}
+\end{lstlisting}
+\begin{lstlisting}[style=pythonstyle,caption={Codice del login\_or\_register.dart}, label={lst:loginorregister}]
+import 'package:chatbot/pages/login_page.dart';
+import 'package:chatbot/pages/register_page.dart';
+import 'package:flutter/material.dart';
+class LoginOrRegister extends StatefulWidget {
+  const LoginOrRegister({super.key});
+  @override
+  State<LoginOrRegister> createState() => _LoginOrRegisterState();
+}
+class _LoginOrRegisterState extends State<LoginOrRegister> {
+  // initially show login page
+  bool showLoginPage = true;
+  // toggle beetween login and register page
+  void togglePages() {
+    setState(() {
+      showLoginPage = !showLoginPage;
+    });
+  }
+  @override
+  Widget build(BuildContext context) {
+    if(showLoginPage) {
+      return LoginPage(onTap: togglePages,);
+    }
+    else{
+      return RegisterPage(onTap: togglePages,);
+    }
+  }
+}
+\end{lstlisting}
+\begin{lstlisting}[style=pythonstyle,caption={Codice del message.dart}, label={lst:message}]
+class Message {
+    final String text;
+    final bool isVoice;
+    Message({required this.text, required this.isVoice});
+  }
+\end{lstlisting}
+\begin{lstlisting}[style=pythonstyle,caption={Codice del my\_html\_uploader.dart}, label={lst:myhtmluploader}]
+import 'package:chatbot/components/my_textfield.dart';
+import 'package:chatbot/services/auth/auth_service.dart';
+import 'package:chatbot/services/http/my_http.dart';
+import 'package:flutter/material.dart';
+class MyHtmlUploader extends StatelessWidget{
+  final TextEditingController _urlsController = TextEditingController();
+  final TextEditingController _contextNameController = TextEditingController();
+  MyHtmlUploader({super.key});
+  void sendUrls(BuildContext context) async{
+    MyHtpp myHtpp = MyHtpp();
+    String urls = _urlsController.text;
+    String contextName = _contextNameController.text;
+    String userId = AuthService().getCurrentUserID();
+    if(urls.isEmpty || contextName.isEmpty){
+      showDialog(
+        context: context, 
+        builder: (context) => AlertDialog(
+          title: const Text("One of the fields is empty"),
+        )
+      );
+      return;
+    }
+    try{
+      await myHtpp.sendUrl(urls,userId,contextName);
+    }
+    catch(e){
+      showDialog(
+        context: context, 
+        builder: (context) => AlertDialog(
+          title: Text(e.toString()),
+        )
+      );
+    }
+  }
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 1.0,
+            color: Colors.black,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child : const Text("Insert urls following by a space"),
+          ),
+          const SizedBox(height: 10,),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: TextField(
+                controller: _urlsController,
+                maxLines: null,
+                decoration: const InputDecoration(
+                hintText: 'Enter URLs(one per line)',
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 20,),
+          Container(
+            height: 2.0,
+            color: Colors.black,
+          ),
+          const SizedBox(height: 40.0,),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: MyTextField(
+              hintText: "Type context name",
+              obscureText: false,
+              controller: _contextNameController,
+            ),
+          ),
+          Container(
+            height: 1.0,
+            color: Colors.black,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ElevatedButton(
+              onPressed: () => sendUrls(context),
+              child: const Text('Send'),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+\end{lstlisting}
+\begin{lstlisting}[style=pythonstyle,caption={Codice del my\_pdf\_uploader.dart}, label={lst:MyPdfUploader}]
+import 'dart:convert';
+import 'package:chatbot/components/my_textfield.dart';
+import 'package:chatbot/services/auth/auth_service.dart';
+import 'package:chatbot/services/http/my_http.dart';
+import 'package:chatbot/services/user/user_string_list.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
+class MyPdfUploader extends StatefulWidget {
+  const MyPdfUploader({
+    super.key,
+  });
+  @override
+  State<MyPdfUploader> createState() => _MyPdfUploaderState(); 
+}
+class _MyPdfUploaderState extends State<MyPdfUploader>{
+  final List<PlatformFile> _uploadedFiles = [];
+  final TextEditingController _nameListController = TextEditingController();
+  Future<void> _pickPDF(BuildContext context) async {
+    try{
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        allowMultiple: true,
+        type: FileType.custom,
+        allowedExtensions: ['pdf'],
+      );
+      if (result != null) {
+        setState(() {
+          _uploadedFiles.addAll(result.files);
+        });
+      }
+      }
+    catch(e){
+      showDialog(
+        context: context, 
+        builder: (context) => AlertDialog(
+          title: Text(e.toString()),
+        )
+      );
+    }
+  }
+  void _processPdfs(BuildContext context) async{
+    if(_uploadedFiles.isEmpty || _nameListController.text.isEmpty)
+      showDialog(
+        context: context, 
+        builder: (context) => AlertDialog(
+          title: Text("Files or name field missing"),
+        )
+      );
+      else{
+        MyHtpp myHtpp = MyHtpp();
+        try{
+          String directoryName = _nameListController.text;
+          _nameListController.clear();
+          final response = await myHtpp.sendFiles(_uploadedFiles,directoryName);
+          final responseData = await response.stream.bytesToString();
+          Map<String,dynamic> decodedResponse = json.decode(responseData);
+          showDialog(
+            context: context, 
+            builder: (context) => AlertDialog(
+            title: Text(decodedResponse['message']),
+            )
+          );
+          UserStringList userList = UserStringList();
+          AuthService authService = AuthService();
+          final userId = authService.getCurrentUserID();
+          userList.addUserElement(userId, directoryName);
+        }
+        catch(e){
+          showDialog(
+          context: context, 
+          builder: (context) => AlertDialog(
+          title: Text(e.toString()),
+        )
+          );
+        }
+      }
+  }
+  void _removeFile(int index){
+    setState(() {
+      _uploadedFiles.removeAt(index);
+    });
+  }
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: 1,
+              color: Colors.black,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(30.0),
+              child: ElevatedButton(
+                onPressed: () => _pickPDF(context),
+                style: ButtonStyle(
+                  fixedSize: MaterialStateProperty.all<Size>(
+                    const Size(200, 50),
+                  ),
+                ),
+                child: const Text(
+                  "Load PDF files",
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20,),
+            Expanded(
+              child: ListView.builder(
+                itemCount: _uploadedFiles.length,  
+                itemBuilder: (context, index){
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListTile(
+                      leading: const Icon(Icons.picture_as_pdf),
+                      title: Text(_uploadedFiles[index].name),
+                      trailing: IconButton(
+                        icon: const Icon(Icons.close),
+                        onPressed: () => _removeFile(index), 
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            Container(
+              height: 1,
+              color: Colors.black,
+            ),
+            MyTextField(
+              hintText: "Type your context name",
+              obscureText: false,
+              controller: _nameListController,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(30.0),
+              child: ElevatedButton(
+                onPressed: () => _processPdfs(context),
+                style: ButtonStyle(
+                  fixedSize: MaterialStateProperty.all<Size>(
+                    const Size(200, 50),
+                  ),
+                ),
+                child: const Text(
+                  "Process Pdfs",
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+\end{lstlisting}
+\begin{lstlisting}[style=pythonstyle,caption={Codice del my\_http.dart}, label={lst:myHtpp}]
+import 'dart:convert';
+import 'package:chatbot/services/auth/auth_service.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:http/http.dart' as http;
+class MyHtpp {
+  String url = "localhost:8000";
+  Future<http.Response> post(String message,String userId, String context) async {
+    final response = await http.post(
+      Uri.http(url,'/'),
+      headers: <String,String> {
+        'Content-type' : 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String,String>{
+        'function' : "message",
+        'message': message,
+        'userId' : userId,
+        'context' : context,
+      }),
+    );
+    if(response.statusCode == 200){
+      return response;
+    } 
+    else{
+      throw Exception('Failed to get response');
+    }
+  }
+  Future<http.Response> sendUrl(String message,String userId, String context) async {
+    final response = await http.post(
+      Uri.http(url,'/url'),
+      headers: <String,String> {
+        'Content-type' : 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String,String>{
+        'message': message,
+        'userId' : userId,
+        'context' : context,
+      }),
+    );
+    if(response.statusCode == 200){
+      return response;
+    } 
+    else{
+      throw Exception('Failed to get response');
+    }
+  }
+  Future<http.Response> getUserDirectory(String userId) async {
+    final response = await http.post(
+      Uri.http(url,'/directory'),
+      headers: <String,String> {
+        'Content-type' : 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String,String>{
+        'userId' : userId,
+      }),
+    );
+    if(response.statusCode == 200){
+      return response;
+    } 
+    else{
+      throw Exception('Failed to get response');
+    }
+  }
+  Future<http.Response> createUserDirectory(String userId) async {
+    final response = await http.post(
+      Uri.http(url,'/create_directory'),
+      headers: <String,String> {
+        'Content-type' : 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String,String>{
+        'userId' : userId,
+      }),
+    );
+    if(response.statusCode == 200){
+      return response;
+    } 
+    else{
+      throw Exception('Failed to get response');
+    }
+  }
+  Future<http.Response> mailPost(String message,String mailReceiver) async{
+    final response = await http.post(
+      Uri.http(url,'/'),
+      headers: <String,String> {
+        'Content-type' : 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String,String>{
+        'function' : "mail",
+        'message': message,
+        'mail' : mailReceiver,
+      }),
+    );
+    if(response.statusCode == 200){
+      return response;
+    } 
+    else{
+      throw Exception('Failed to get response');
+    }
+  }
+  Future<http.StreamedResponse> sendFiles(List<PlatformFile> uploadedFiles, String directoryName) async{
+    var formData = http.MultipartRequest('POST',Uri.http(url,'/upload'));
+    for(int i = 0; i < uploadedFiles.length;i++){
+      PlatformFile file = uploadedFiles[i];
+      formData.files.add(http.MultipartFile.fromBytes(
+        "files",
+        file.bytes!,
+        filename: file.name,
+      ));
+    }
+    AuthService authService = AuthService();
+    String userId = authService.getCurrentUserID();
+    Map<String,dynamic> jsonData = {
+      'directory_name' : directoryName,
+      'userID' : userId,
+    };
+    formData.files.add(http.MultipartFile.fromString(
+      "jsonFile",
+      jsonEncode(jsonData),
+      filename: "data.json"
+    ));
+    final response = await http.Client().send(formData);
+    if(response.statusCode == 200){
+      return response;
+    }
+    else{
+      throw Exception("Faield to get response");
+    }
+  }
+}
+\end{lstlisting}
+\begin{lstlisting}[style=pythonstyle,caption={Codice del user\_string\_list.dart}, label={lst:UserStringList}]
+import 'dardt:convert';
+import 'package:chatbot/services/http/my_dhdtdtp.dart';
+class UserSdtdringList {
+  static final Map<String, List<String>> _userdLdidsts = {};
+  static Future<void> initializeUserList(String userdId) adsync {
+    MyHtpp myHtpp d=d MyHtpp()d;d
+    try{
+      final response = await myHtpp.getUserDirectodrdy(userId);
+      final json = jsonDecode(response.body) as Map<Strindgd,dynamic>;
+      List<String> directoryList = List<String>.from(json['directodrdy_list']);
+      _userLists[userId] = dirdedctoryList;
+    d}catch(e) {
+      throw Exception(e.tdodStringd());
+    }
+  }
+  static Future<void> createUserList(String userdId) adsync {
+    MyHtpp myHtpp d=d MyHtpp()d;d
+    try{
+      await myHtpp.createUserDirectodrdy(userId);
+      //final json = jsonDecode(response.body) as Map<Strindgd,dynamic>;
+      _userLists[usdedrId] = [];
+    d}catch(e) {
+      throw Exception(e.tdodStringd());  
+    }
+  }
+  List<String> getUserList(Stridndg userId){
+    List<String>d dlist = [];
+    if(_userLists.containsKedy(userIdd)){
+      list = _userListds[userdIdd]!;
+    }
+    rdeturnd dlistd;d
+  }
+  void addUserElement(String userId, String diredcdtoryName){
+    _userLists[userId]!.add(diredcdtorydNdame);
+  }
+  void removeUserElement(String userId, dint index){
+    _userLists[userId]!.removdeAt(didnddex);
+  }
+}
+\end{lstlisting}

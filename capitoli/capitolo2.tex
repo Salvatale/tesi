@@ -1,0 +1,369 @@
+\chapter{Large Language Models (LLMs)}
+
+\section{Introduzione e caratteristiche degli LLMs}
+Un modello di linguaggio di grandi dimensioni (Large Language Model, LLM) è un tipo di modello di intelligenza artificiale caratterizzato da un numero estremamente elevato di parametri e addestrato su un vasto corpus di dati testuali. Questi modelli sono progettati per eseguire operazioni linguistiche con un elevato grado di accuratezza.\newline
+L'architettura Transformer ha giocato un ruolo cruciale nel successo di questi modelli. Il meccanismo di self-attention, che costituisce la base di questa architettura, consente di valutare l'importanza relativa delle diverse parti dell'input e di comprendere le relazioni tra le parole in modo più efficace rispetto alle architetture precedenti.\newline
+Un ulteriore elemento chiave del successo degli LLM è rappresentato dal processo di pre-addestramento. Questo processo utilizza un vasto insieme di dati, che può includere articoli, libri e altre forme di testo, per formare il modello a eseguire operazioni linguistiche con maggiore competenza. Il pre-addestramento su dati di larga scala permette al modello di acquisire una comprensione approfondita delle strutture linguistiche e delle conoscenze generali, che vengono poi affinati per compiti specifici attraverso un processo di addestramento mirato \cite{kasneci2023chatgpt}.
+
+\section{Esempi di LLMs attuali}
+
+\subsection{Panoramica dei modelli LLMs}
+La tabella \ref{LLMs} presenta diversi modelli di linguaggio e le loro rispettive caratteristiche. La colonna "tunability" indica i modelli che possono essere sottoposti a fine-tuning per compiti specifici, al fine di migliorarne l'efficacia per tali compiti \cite{yao2024survey}. Tra i modelli, si possono osservare le diverse versioni di GPT, che nel tempo hanno ottenuto un successo particolare.
+
+\begin{table}[ht]
+    \centering
+    \resizebox{0.99\linewidth}{!}{
+        \begin{tabular}{||c||c|c|c|c|c||}
+            \hline
+            Modello & Data & Azienda & Open-Source & Parametri & Tunability \\
+            \hline
+            GPT-4 \cite{achiam2023gpt} & 2023.03 & OpenAI & NO & 1.7 T & NO \\
+            \hline
+            GPT-3.5-turbo & 2021.09 & OpenAI & NO & 175 B & NO \\
+            \hline
+            Cohere-medium \cite{liang2022holistic} & 2022.07 & Cohere & NO & 6 B & YES \\
+            \hline
+            Cohere-large \cite{liang2022holistic} & 2022.07 & Cohere & NO & 13 B & YES \\
+            \hline
+            Cohere-xlarge \cite{liang2022holistic} & 2022.07 & Cohere & NO & 52 B & YES \\
+            \hline
+            BERT \cite{devlin2018bert} & 2018.08 & Google & YES & 340 M & YES \\
+            \hline
+            T5 \cite{raffel2020exploring} & 2019 & Google & YES & 11 B & YES \\
+            \hline
+            PaLM \cite{narang2022pathways} & 2022.04 & Google & YES & 540 B & YES \\
+            \hline
+            LLaMA \cite{meta2023introducing} & 2023.02 & Meta AI & YES & 65 B & YES \\
+            \hline
+            CTRL \cite{keskar2019ctrl} & 2019 & Salesforce & YES & 1.6 B & YES \\
+            \hline
+            Dolly 2.0 & 2023.04 & Databricks & YES & 12 B & YES \\
+            \hline
+        \end{tabular}
+    }
+    \vspace*{2mm}
+    \caption{Confronto tra i diversi modelli di linguaggio \cite{yao2024survey}}
+    \label{LLMs}
+\end{table}
+
+\subsection{Generative Pre-trained Transformer (GPT)}
+GPT è un modello di linguaggio autoregressivo che genera sequenze di parole, codice ed altre forme di dato, partendo da una sorgente di input, chiamata prompt.
+Il modello è stato addestrato utilizzando il supercomputer Microsoft Azure AI, con costi stimati intorno ai 12 milioni di dollari. La prima iterazione risale al 2018 e ha impiegato 110 milioni di parametri. L'anno successivo, GPT-2 ha utilizzato 1,5 miliardi di parametri, mentre GPT-3 ne utilizza infine 175 miliardi \cite{floridi2020gpt}.
+Il modello più recente, GPT-4, è stato addestrato con 1 trilione di parametri, e OpenAI sta già lavorando allo sviluppo di GPT-5.
+
+\subsubsection{GPT-4 Performance}
+La \textbf{perdita finale} di un modello può essere approssimata utilizzando leggi di scala, in questo modo riusciamo a prevedere la relazione tra le risorse computazionali impiegate e la performance del modello \cite{achiam2023gpt}.
+Nella figura \ref{fig:loss-prediction}, è stata analizzata la perdita finale di GPT-4 utilizzando un dataset molto ampio di codici non incluso nell'insieme di addestramento, impiegando la legge di scala \ref{equ:scaling} \cite{henighan2020scaling}.
+
+\begin{equation}
+    L(C) = aC^b + c
+    \label{equ:scaling}
+\end{equation}
+
+Dove \textbf{a} è una costante che determina l'ampiezza dell'effetto della variabile \textbf{C}, che rappresenta una misura della risorsa computazionale o della dimensione del modello, come il numero di parametri o la dimensione del dataset. \textbf{b} è l'esponente che indica come la perdita dipende dalla variabile C, ed infine \textbf{c} è una costante aggiuntiva che rappresenta un termine di perdita asintotica o residua.
+La previsione è basata utilizzando modelli addestrati nello stesso modo, ma utilizzando 10.000 volte meno calcolo di GPT-4 come mostrato nella figura \ref{fig:loss-prediction} \cite{achiam2023gpt}.
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.3\textwidth]{Immagini/GPT-4_word_prediction.png}
+	\caption{ Performance di GPT-4 e modelli più piccoli. La metrica è la perdita finale su un dataset interno, la linea tratteggiata corrisponde alle legge adattata ai modelli più piccoli, predicendo con precisione la perdita finale di GPT-4. L'asse x rappresenta il calcolo di addestramento normalizzato in modo che GPT-4 sia uguale a 1 \cite{achiam2023gpt}.}
+	\label{fig:loss-prediction}
+\end{figure}
+
+È stato utilizzato il dataset HumanEval \cite{chen2021evaluating} per valutare metriche di capacità, come ad esempio il tasso di successo. Il test prevedeva di misurare la sintesi di funzioni Python di varia complessità. La previsione del tasso di successo su un sottoinsieme del dataset HumanEval è stata effettuata estraendo dati da modelli addestrati con al massimo 1.000 volte meno calcolo. Poiché la performance potrebbe deteriorarsi con la scala per un singolo problema nel dataset, la relazione approssimativa di legge di potenza \ref{equ:power_law} cerca di affrontare questo problema \cite{achiam2023gpt}.
+
+\begin{equation}
+- \mathbb{E}_P \left[ \log(\text{pass\_rate}(C)) \right] = \alpha C^{-k}
+\label{equ:power_law}
+\end{equation}
+
+Dove k e \(\alpha\) sono costanti positive e P rappresenta il sottoinsieme dei problemi presi da HumanEval dataset.
+L'obiettivo era prevedere la performance di GPT-4 sul dataset prima che l'addestramento fosse completato, basandosi sui risultati dei modelli più piccoli. I problemi sono stati suddivisi dai modelli più piccoli in sei categorie di difficoltà. La figura \ref{fig:pass-rate} mostra i risultati della categoria numero 3, dove era possibile stimare con precisione il logaritmo del tasso di successo utilizzando i modelli più piccoli; anche le altre categorie hanno comunque ottenuto prestazioni molto buone. GPT-4 ha sottoperformato nelle categorie più facili, mentre ha ottenuto risultati migliori nelle categorie che contenevano classi di problemi più difficili \cite{achiam2023gpt}.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.3\textwidth]{Immagini/GPT-4_coding_problems.png}
+	\caption{ Performance di GPT-4 e modelli più piccoli. La metrica è la media del logaritmo del tasso di successo su un sottoinsieme di HumanEval. L'asse x rappresenta il calcolo di addestramento normalizzato in modo che GPT-4 sia pari a 1 \cite{achiam2023gpt}.}
+	\label{fig:pass-rate}
+\end{figure}
+
+GPT-4 è stato testato su esami umani senza addestramento specifico per questi.
+Le domande includevano vari formati (scelta multipla e risposta libera) e sono stati utilizzati prompt specifici per ciascun tipo.
+I punteggi sono stati calcolati combinando i risultati delle diverse tipologie di domande e i percentili sono stati stimati e riportati nella figura \ref{fig:exam-results} \cite{achiam2023gpt}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.3\textwidth]{Immagini/exam_results.png}
+	\caption{ performance di GPT-4 su esami accademici e professionali, simulando le condizioni e il sistema di valutazione degli esami reali \cite{achiam2023gpt}.}
+	\label{fig:exam-results}
+\end{figure}
+
+Nella figura \ref{fig:GPT4-benchmarks} si possono osservare le prestazioni di GPT-4 sui benchmark tradizionalmente utilizzati per valutare i modelli linguistici di grandi dimensioni, ottenendo infine ottimi risultati in confronto ad essi \cite{achiam2023gpt}.\\
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.3\textwidth]{Immagini/GPT-4_benchmarks.png}
+	\caption{ prestazioni di GPT-4 su benchmarks accademici \cite{achiam2023gpt}.}
+	\label{fig:GPT4-benchmarks}
+\end{figure}
+
+La maggior parte dei ML benchmarks sono scritti in inglese, quindi gli MMLU benchmarks\footnote{un'insieme di problemi a scelta multipla di 57 discipline diverse} sono stati tradotti in altre lingue e testati.
+Nella figura \ref{fig:GPT4-languages-benchmarks} possiamo osservare i risultati dei test tra GPT-4 e gli altri modelli di linguaggio. GPT-4 ha superato di gran lunga le prestazioni del modello precedente e di tutti gli altri modelli, sia in inglese che in tutte le altre lingue \cite{achiam2023gpt}.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.3\textwidth]{Immagini/GPT-4_languages_benchmarks.png}
+	\caption{ prestazioni di GPT-4 sui MMLU benchmarks tradotti in altre lingue in confronto ad altri modelli \cite{achiam2023gpt}.}
+	\label{fig:GPT4-languages-benchmarks}
+\end{figure}
+
+In conclusione, nonostante i risultati eccezionali ottenuti da GPT-4, il modello non è ancora completamente affidabile, poiché può generare fatti inesatti ("allucinazioni") e commettere errori di ragionamento. È quindi necessario prestare sempre attenzione e fare un uso attento e consapevole dello strumento \cite{achiam2023gpt}.
+
+\subsection{Google Gemini}
+Gemini è il modello multimodale nativo\footnote{Modello di intelligenza artificiale progettato per comprendere e generare dati attraverso diversi tipi di input e output, come testo, immagini, audio e video, in modo nativo. Questo significa che il modello è stato concepito e addestrato fin dall'inizio per lavorare con più modalità di dati, piuttosto che essere un modello originariamente unimodale (ad esempio solo testuale) che è stato successivamente adattato per gestire altre modalità.} sviluppato da Google. La capacità di processare insiemi di dati complessi, come grafici e immagini, consente a questo modello di trovare applicazione in ambiti come la medicina e l'oftalmologia. In medicina, oltre alla sua abilità nell'analisi delle immagini, Gemini è in grado di comprendere e interpretare la letteratura medica, lo storico dei pazienti e i dati di ricerca. In oftalmologia, Gemini può diagnosticare condizioni oculari, analizzare i sintomi riportati dai pazienti e suggerire piani di trattamento basati su ricerche recenti e linee guida cliniche \cite{masalkhi2024google}.
+Al contrario, modelli di linguaggio come ChatGPT possono avere difficoltà nella comprensione del contesto delle informazioni o nel fornire dati aggiornati, rendendo complesso l'utilizzo di queste tecnologie in ambiti specialistici \cite{waisberg2023bridging} \cite{kocon2023chatgpt} \cite{jeyaraman2023chatgpt} \cite{waisberg2023chatgpt}.
+
+\section{Impatti e Applicazioni degli LLMs}
+\subsection{Applicazioni nel business e nella finanza}
+Nei recenti studi di \cite{chen2023fiction} è stato condotto un esperimento per dimostrare l'abilità di ChatGPT nel condurre un'analisi del sentiment nel mercato finanziario. Nel 2013, in California, è entrato in vigore il programma cap-and-trade per ridurre le emissioni di gas serra. Sono state esaminate 321 aziende con sede in California, Nevada, Oregon e Arizona, utilizzando i rapporti annuali delle aziende successivi all'approvazione della politica nel 2011. È stato fornito a ChatGPT il seguente prompt template per attribuire un punteggio al sentiment negativo: \textit{'On a probability scale of 0 to 1, what is the negative sentiment score of the discussion for capand-trade policy in the provided text:’ + ‘searched text’ + ‘Please only output the sentiment score without any narrative nor analysis. So the sentiment score of this text is: '}
+La figura \ref{fig:sentiment-analysis} mostra come le aziende con punteggi di sentiment negativo più alti abbiano registrato ritorni giornalieri più bassi (0.06) rispetto a quelle con punteggi di sentiment negativo più bassi (0.14). Inoltre, le aziende che non hanno menzionato le parole chiave hanno avuto i valori di ritorno più bassi e fluttuazioni maggiori nei ritorni (-0.12 e deviazione standard di 2.04).
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.3\textwidth]{Immagini/sentiment_analysis.png}
+	\caption{ Valori di ritorno per ogni categoria del sentiment negativo generato da GPT-3.5 E GPT-4 \cite{chen2023fiction}.}
+	\label{fig:sentiment-analysis}
+\end{figure}
+Il case study ha dimostrato che dopo aver introdotto una politica aziendale, il sentiment negativo delle aziende, rilevato da ChatGPT, ha predetto una migliore capacità di gestione del rischio e una performance azionaria meno volatile.
+Il sentiment negativo generato da ChatGPT può indicare efficacemente i fattori di rischio.
+Nel settore finanziario è fondamentale considerare le limitazioni dei modelli utilizzati. I dati generati da un modello potrebbero condurre ad addestramenti errati dei modelli stessi, decisioni fuorvianti e significative perdite economiche. Inoltre, è importante tenere presente che le predizioni si basano su dati storici e non sono in grado di prevedere eventi inaspettati. Un ulteriore limite risiede nella variabilità delle risposte: domande con lo stesso significato, ma formulate in modo diverso, possono ottenere risposte differenti.
+
+\subsection{Applicazioni e benefici nella medicina}
+Gli studi condotti da \cite{zheng2024large} hanno messo in luce i molteplici vantaggi derivanti dall'impiego dei modelli linguistici di grandi dimensioni nel campo medico. Tra questi, spiccano la capacità di migliorare la diagnosi e la previsione delle patologie, l'integrazione della conoscenza e l'accesso in tempo reale alle informazioni, lo sviluppo di trattamenti personalizzati e di farmaci, la gestione ottimizzata dei pazienti e dei processi sanitari, nonché il potenziamento dell'educazione clinica e la diffusione della conoscenza medica.
+
+\subsubsection{Capacità di diagnosi e previsione migliorate}
+Gli LLMs facilitano la diagnosi precoce e la previsione delle malattie, consentendo interventi tempestivi e personalizzati. Essi sono anche in grado di prevedere l'efficacia dei trattamenti basati su dati clinici e genomici.
+
+\subsubsection{Integrazione della conoscenza e accesso in tempo reale}
+Gli LLMs aggiornano costantemente il corpus delle conoscenze mediche globali, supportando decisioni cliniche basate sulle più recenti evidenze e migliorando la precisione sia diagnostica che terapeutica.
+
+\subsubsection{Trattamenti personalizzati e sviluppo di farmaci}
+Gli LLMs sono in grado di elaborare piani terapeutici su misura per i singoli pazienti e accelerano il processo di sviluppo di nuovi farmaci, prevedendone l'efficacia e i possibili effetti collaterali.
+
+\subsubsection{Gestione dei pazienti e ottimizzazione dei processi sanitari}
+Gli LLMs contribuiscono alla personalizzazione della gestione della salute dei pazienti e al miglioramento dell'efficienza dei processi sanitari, attraverso l'identificazione e l'ottimizzazione dei punti critici nei flussi di lavoro.
+
+\subsubsection{Educazione clinica e diffusione della conoscenza medica}
+Gli LLMs rivestono un ruolo fondamentale nell'ambito dell'educazione medica, simulando scenari clinici realistici e fornendo applicazioni sanitarie che offrono consigli personalizzati per la prevenzione e la gestione delle malattie, aiutando così i pazienti a prendere decisioni informate riguardo alla propria salute.
+
+\subsubsection{Applicazioni e Supporto degli LLM in Diverse Specialità Mediche}
+Gli LLM medici hanno ottenuto notevole successo nei seguenti settori: odontoiatria \cite{huang2023chatgpt}, radiologia \cite{d2024large}, medicina nucleare \cite{wang2023huatuo}, clinica \cite{singhal2023large} e progettazione dei farmaci \cite{chakraborty2023artificial}. Inoltre, hanno fornito supporto in ambiti quali la medicina interna \cite{omiye2024large}, la chirurgia \cite{puladi2023impact}, l'ostetricia e ginecologia \cite{grunebaum2023exciting}, le malattie infettive \cite{schwartz2024black}, la medicina genetica \cite{feldman2019development} e le malattie croniche \cite{biswas2023role}. Gli LLM medici sono addestrati su ampi corpus di dati biomedici, BioGPT \cite{luo2022biogpt} e BioBERT \cite{lee2020biobert} sono esempi rappresentativi di tali modelli.
+BioBERT, rispetto ad altri modelli, ha dimostrato di migliorare del 0,62\% il punteggio F1 nella riconoscimento delle entità all'interno dei testi biomedici, come geni, proteine e malattie. Inoltre, ha aumentato del 2,80\% il punteggio F1 nell'estrazione delle relazioni tra entità nei testi biomedici e ha ottenuto un miglioramento del 12,24\% nel Mean Reciprocal Rank per la risposta a query relative ad argomenti biomedici \cite{zheng2024large}.
+Le applicazioni degli LLMs sono mostrati nella figura \ref{fig:llms-medicine} e nella tabella \ref{tab:medical-LLMs} sono elencati alcuni dei LLM medici ed i loro casi d'uso.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.3\textwidth]{Immagini/medicine_applications.png}
+	\caption{ I punti critici delle cure mediche e le applicazioni dei LLM medici \cite{zheng2024large}.}
+	\label{fig:llms-medicine}
+\end{figure}
+\begin{table}[ht]
+	\centering
+	\resizebox{0.99\linewidth}{!}{
+	\begin{tabular}{||c||c|c|c|c||}
+        \hline        Dominio&\phantom{00}LLM\phantom{00}&\phantom{00}Anno\phantom{00}&\phantom{00}Articolo\phantom{00}&\phantom{00}Sorgente\phantom{00} \\
+        \hline
+		\multirow{7}{*}{Terapia integrativa e diagnosi}
+                &MedGPT&2021&\cite{kraljevic2021medgpt}&\url{https://medgpt.co/home} \\
+                &LLM-Mini-CEX&2023&\cite{shi2023llm}&  \\
+                &WiNGPT&2023&/&\url{https://github.com/winninghealth/WiNGPT2}\\
+                &SkinGPT-4&2023&\cite{zhou2023skingpt}& \\
+                &DoctorGLM&2023&\cite{xiong2023doctorglm}&\url{https://github.com/xionghonglin/DoctorGLM} \\
+                &BenTsao (Huatuo)&2023&\cite{wang2023huatuo}&\url{https://github.com/SCIR-HI/Huatuo-Llama-Med-Chinese} \\
+                &ClinicalGPT&2023&\cite{wang2023clinicalgpt}& \\             
+        \hline
+        \hline
+            \multirow{4}{*}{Progettazione faramci}
+            &PanGu Drug Model&2023&\cite{lin2022pangu}& \\
+            &HelixFold-Single&2023&\cite{fang2023method}&\url{https://github.com/PaddlePaddle/PaddleHelix/tree/dev/apps/protein_folding/helixfold-single}\\
+            &TransAntivirus&2023&\cite{mao2023transformer}& \\
+            &OpenBioMed&2023&\cite{luo2023towards}&\url{https://github.com/PharMolix/OpenBioMed} \\           
+        \hline
+        \hline
+            \multirow{4}{*}{segmentazione delle immagini mediche}
+            &DSI-Net&2021&\cite{zhu2021dsi}&\url{https://github.com/CityU-AIM-Group/DSI-Net}\\
+            &MedLSAM&2023&\cite{lei2023medlsam}&\url{https://github.com/openmedlab}\\
+            &Lvit&2023&\cite{li2023lvit}&\url{https://github.com/HUANGLIZI/LViT}\\
+            &MedCLIP-SAM&2024&\cite{koleilat2024medclip}& \\
+        \hline
+
+        \hline
+            \multirow{6}{*}{Comunicazione dottore-paziente}
+            &BioMedLM/PubMed GPT&2022&/&\url{https://www.databricks.com/blog/category/generative-ai/mosaic-research}\\
+            &ChatDoctor&2023&\cite{li2023chatdoctor}&\url{https://github.com/Kent0n-Li/ChatDoctor} \\
+            &Disc-medllm&2023&\cite{bao2023disc}&\url{https://github.com/FudanDISC/DISC-MedLLM}\\
+            &BianQue&2023&\cite{chen2023bianque}&\url{https://github.com/scutcyr/BianQue}\\
+            &MeChat&2023&\cite{qiu2023smile}&\url{https://github.com/qiuhuachuan/smile}\\
+            &PMC-LLaMA&2023&\cite{wu2024pmc}&\url{https://github.com/chaoyi-wu/PMC-LLaMA}\\
+        \hline
+        \hline
+            \multirow{3}{*}{Multimodale}
+            &OpenMEDLab&2023&/&\url{https://github.com/openmedlab}\\
+            &Med-MLLM&2023&\cite{liu2023medical}& \\
+            &PeFoMed&2024&\cite{he2024pefomed}&\url{https://github.com/jinlHe/PeFoMed}\\
+        \hline
+
+        \hline
+            \multirow{4}{*}{Gestione della salute}
+            &CIDRS&2021&\cite{wang2021cloud}& \\
+            &GatorTron&2022&\cite{yang2022large}&\url{https://catalog.ngc.nvidia.com/orgs/nvidia/teams/clara/models/gatortron_og}\\
+            &CareGPT&2023&/&\url{https://github.com/WangRongsheng/CareGPT}\\
+            &Bianshi&2023&/&\url{https://www.a-eye.cn/technology.html##Model}\\
+        \hline
+	\end{tabular}
+	}
+	\vspace*{2mm}
+	\caption{Informazioni sui diversi LLMs medici e il loro campo di applicazione \cite{zheng2024large}.}
+	\label{tab:medical-LLMs}
+\end{table}
+
+\subsection{Impatti nella Cybersecurity}
+I recenti studi condotti da \cite{10198233} mostrano come gli LLMs possono essere un'utile strumento per la cybersecurity ma anche un problema per la privacy e la sicurezza.
+La figura \ref{fig:cybersecurity-impact} mostra l'impatto degli LLMs\footnote{nell'articolo si prende come riferimento ChatGPT} all'interno della cybersecurity.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.3\textwidth]{Immagini/Cybersceurity_impact.jpg}
+	\caption{ Riepilogo dell'impatto degli LLMs nella Cybersecurity e strategie future \cite{10198233}.}
+	\label{fig:cybersecurity-impact}
+\end{figure}
+\subsubsection{LLMs per la Cyber Defense}
+ChatGPT può essere utilizzato per analizzare incidenti di sicurezza informatica alleggerendo il lavoro della Security Operations Center (SOC), come per esempio l'analisi di uno script Powershell.
+
+\begin{figure}[ht]
+	\centering
+	\begin{subfigure}{0.3\textwidth}
+		\includegraphics[width=1.0\textwidth]{Immagini/logs_detecting.png}
+		\caption{ChatGPT individua problemi di sicurezza nei log di accesso \cite{calbimonte2023powershell}.}
+            \label{fig:logs-detecting}
+	\end{subfigure}%
+	\begin{subfigure}{0.3\textwidth}
+		\includegraphics[width=1.0\textwidth]{Immagini/cpu_consuming_detecting.png}
+		\caption{PowerShell script che individua quale tabella in AdventureWorks2019 database consuma più cpu \cite{calbimonte2023powershell}.}
+            \label{fig:cpu-consuming}
+	\end{subfigure}
+	\caption{}
+\end{figure}
+
+Nella figura \ref{fig:logs-detecting} vengono forniti i log dei server come input a ChatGPT, il quale è in grado di identificare possibili minacce, come ad esempio le SQL injections, e di definirne la categoria \cite{calbimonte2023powershell}.
+Nella figura \ref{fig:cpu-consuming}, ChatGPT identifica quale tabella sta consumando più CPU, permettendo all'analista di intraprendere le azioni necessarie per migliorare le prestazioni \cite{calbimonte2023powershell}.
+ChatGPT è in grado di produrre dei threat intelligence reports\footnote{La threat intelligence raccoglie e analizza le possibili problematiche di sicurezza per aiutare le organizzazioni a difendersi dai potenziali attacchi informatici.} basati su varie sorgenti, come per esempio social media, forum del dark web, articoli e altre risorse online, consentendo di identificare potenziali problemi e valutare il livello di rischio.
+ChatGPT, integrato con sistemi di detenzione, potrebbe fornire notifiche quando vengono individuate potenziali minacce. Grazie alla sua capacità di apprendere i pattern e i comportamenti delle minacce dai dati storici, ChatGPT consente di avvisare il team di sicurezza in modo tempestivo, permettendo loro di intervenire il prima possibile per risolvere la minaccia \cite{10198233}.\\
+La capacità di fornire istruzioni dettagliate in linguaggio naturale è uno dei fattori di successo degli LLMs.
+Un altro rischio per la sicurezza sono le vulnerabilità del codice all'interno dei sistemi software.
+Gli LLMs hanno mostrato la capacità di individuare eventuali bug di sicurezza ma anche di generare codice sicuro \cite{10198233}.
+
+\subsubsection{LLMs per la Cyber Offense} \label{cyber-offense}
+La capacità di generare linguaggio naturale potrebbe fornire uno strumento per manipolare le persone e condurre attacchi come il social engineering e il phishing.
+La figura \ref{fig:pishing-social_engineering} mostra le generazioni di ChatGPT per un eventuale messaggio di phishing e di social engineering, simulando il linguaggio umano e cercando di essere il più convincente possibile \cite{10198233}.
+
+\begin{figure}[ht]
+	\centering
+	\begin{subfigure}{0.3\textwidth}
+		\includegraphics[width=1.0\textwidth]{Immagini/pishing.png}
+		\caption{ChatGPT ouput per un attacco pishing \cite{10198233}.}
+	\end{subfigure}%
+	\begin{subfigure}{0.3\textwidth}
+		\includegraphics[width=1.0\textwidth]{Immagini/social_engineering.png}
+		\caption{ChatGPT output per un attacco social engineering \cite{10198233}.}
+	\end{subfigure}
+	\caption{}
+        \label{fig:pishing-social_engineering}
+\end{figure}
+
+PentestGPT è una soluzione basata sulla tecnologia di ChatGPT progettata per automatizzare vari aspetti del processo di penetration testing.
+Con un dataset di vulnerabilità software conosciute, un modello potrebbe essere usato per trovare simili debolezze in altro codice.
+Il problema sorge se venissero sviluppati modelli per automatizzare procedure di hacking non etico.
+I modelli LLMs potrebbero essere utilizzati per generare porzioni di codice malevoli, ransomware e malware.
+La figura \ref{fig:SQL-injections} mostra un payload SQL generato da ChatGPT, il quale può essere iniettato in un sistema vulnerabile, in questo caso un server MySQL \cite{10198233}.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.3\textwidth]{Immagini/SQL_injection.png}
+	\caption{Generazione di payload SQL injections utilizzando ChatGPT DAN jailbreak \cite{10198233}.}
+	\label{fig:SQL-injections}
+\end{figure}
+
+\section{Implicazioni sociali, etiche e legali degli LLMs}
+L'uso dei modelli di linguaggio di grandi dimensioni (LLMs) solleva una serie di sfide etiche, legali e sociali, che spaziano dalla perpetuazione dei bias sociali alla violazione della privacy e alla possibile diffusione di informazioni riservate. L'uso improprio da parte di un utente potrebbe avere conseguenze legali, con il rischio di arrecare danni a individui o aziende coinvolte, come illustrato nella sottosezione \ref{cyber-offense} \cite{10198233}.
+
+\subsection{Implicazioni Etiche e Sociali dei Bias nei Modelli di Linguaggio}
+Nel contesto etico e sociale, i modelli di linguaggio possono manifestare risultati pregiudizievoli o comportamenti discriminatori, un fenomeno noto come bias, che può rinforzare stereotipi e ingiustizie esistenti, conducendo a esiti eticamente problematici \cite{yao2024survey}. Diversi studi \cite{talat2022you} \cite{urchs2023prevalent} hanno evidenziato la presenza di pregiudizi nel linguaggio utilizzato per interagire con i LLMs, il che può portare a stereotipi dannosi o risultati discriminatori nei confronti di genere e gruppi minoritari \cite{dong2023probing} \cite{kotek2023gender} \cite{felkner2023winoqueer} \cite{shaikh2022second}. Inoltre, \cite{urman2023silence} hanno scoperto che i bias possono derivare anche dall'adesione dei LLMs a linee guida di censura governativa, suggerendo che i modelli potrebbero essere addestrati per omettere o alterare informazioni in base a regolamenti di censura. I bias nei LLMs possono influenzare negativamente anche la scrittura professionale \cite{su2023fake} \cite{wan2023kelly} \cite{fang2024bias}, un aspetto cruciale che richiede elevati standard di precisione e imparzialità.
+
+\subsection{Sicurezza dei Dati e Privacy: Incidenti e Rischi Associati ai Modelli di Linguaggio}
+Un'altra questione rilevante riguarda la sicurezza e l'uso delle informazioni personali. Recentemente, ChatGPT è stato coinvolto in una violazione dei dati. I report indicano che solo le ultime quattro cifre delle carte di credito degli utenti registrati il 20 marzo 2023, tra le ore 1:00 e le 10:00 a.m., ora del Pacifico, sono state esposte \cite{poremba2023chatgpt}. In un altro caso, i dipendenti della Samsung hanno utilizzato ChatGPT per correggere e generare codice, inserendo informazioni aziendali riservate. Questo episodio evidenzia il rischio che dati sensibili possano essere divulgati involontariamente attraverso l'uso di questi strumenti, suggerendo che le aziende potrebbero dover implementare politiche restrittive sull'uso dei LLMs da parte dei dipendenti \cite{maddison2023samsung}. Inoltre, l'utilizzo di informazioni personali per l'addestramento dei modelli di linguaggio solleva questioni etiche e legali. OpenAI ha dichiarato di basarsi su interessi legittimi nell'uso di questi dati, ma ciò solleva interrogativi su come i sistemi di intelligenza artificiale gestiscano i dati personali, sia pubblici che riservati \cite{burgess2023chatgpt}.
+
+\subsection{Disinformazione ed Allucinazioni nei Modelli di Linguaggio: Rischi di Diffusione di Informazioni Errate}
+Un'altra sfida significativa è rappresentata dalla disinformazione causata dal fenomeno delle allucinazioni, in cui i modelli generano informazioni imprecise o completamente false \cite{achiam2023gpt}. Quando molti utenti pongono domande simili e ricevono risposte erronee simili (ovvero, allucinazioni), queste informazioni errate possono diffondersi ampiamente, influenzando negativamente le decisioni e le opinioni degli utenti su larga scala \cite{10198233}.
+
+\section{Tecniche di generazione e miglioramento}
+Le allucinazioni possono causare una serie di problematiche, tuttavia, l'applicazione della strategia di fine-tuning consente di migliorare significativamente le capacità di un modello pre-addestrato, riducendo l'incidenza di tali fenomeni e ottimizzando la precisione delle risposte generate.
+\subsection{Fine-Tuning}
+Il fine-tuning è una strategia che consente di trasferire conoscenze a modelli pre-addestrati, affinando ulteriormente le loro competenze e dotandoli di nuove capacità per svolgere compiti specifici. Il processo prevede la sostituzione dell'ultimo strato della rete pre-addestrata, che corrisponde al classificatore, con un nuovo strato specifico per il compito da svolgere, il quale inizialmente è casuale\footnote{Non addestrato}. Successivamente, la rete modificata viene sottoposta al processo di fine-tuning utilizzando un nuovo set di dati specifico per il compito, migliorando così le prestazioni del modello in quell'ambito \cite{DBLP:journals/corr/abs-1907-07844}.
+Il fine-tuning è stato introdotto per la prima volta in \cite{hinton2006reducing} e utilizzato per trasferire conoscenze da un modello generativo a un modello discriminativo\footnote{Un modello discriminativo è progettato per distinguere tra diverse categorie, come una rete neurale che classifica un'immagine come "gatto" o "cane."}. Successivamente, questa tecnica è stata applicata in altri contesti \cite{zeiler2014visualizing} \cite{girshick2014rich}, diventando particolarmente rilevante in numerosi sistemi di riconoscimento visivo.
+Sebbene il fine-tuning sia ampiamente adottato, presenta due limiti rilevanti. Il primo riguarda la capacità fissa dei modelli, che limita la possibilità di utilizzare questa tecnica senza modificare la struttura della rete. Il secondo limite è rappresentato dall'elevato numero di parametri del modello, il che comporta un aumento dei costi e dei tempi necessari per l'addestramento dell'intero modello. Il primo problema può essere mitigato adottando reti neurali sviluppative, mentre per affrontare la seconda problematica si ricorre al metodo Parameter-Efficient Fine-Tuning (PEFT).
+
+\subsubsection{Reti neurali sviluppative}
+Il lavoro presentato da \cite{DBLP:journals/corr/abs-1907-07844} introduce un nuovo approccio che consente ai modelli di crescere e adattarsi in modo dinamico durante l'apprendimento, ispirandosi al processo di apprendimento umano, e migliorando significativamente le prestazioni sui nuovi compiti affrontati.
+Le reti neurali sviluppative incrementano la loro capacità aggiungendo nuove unità seguendo due approcci principali: l'aggiunta di più strati al modello per renderlo più profondo e l'inserimento di un maggior numero di canali per strato, aumentando così la larghezza di ciascuno di essi.
+L'articolo offre un contributo triplice: innanzitutto, dimostra che il paradigma dominante del fine-tuning con modelli a capacità fissa è sub-ottimale. In secondo luogo, esplora diverse strategie per aumentare la capacità del modello, rilevando che sia l'approfondimento che l'allargamento risultano efficaci, con una leggera preferenza per quest'ultimo. Infine, sottolinea l'importanza di normalizzare e scalare le nuove unità aggiunte per bilanciare il ritmo di apprendimento rispetto alle unità esistenti.
+Nel corso dell'esperimento è stata impiegata la rete AlexNet \cite{krizhevsky2017imagenet}, pre-addestrata su ILSVRC 2012 \cite{russakovsky2015imagenet}, e successivamente adattata a nuovi compiti. Per valutare le prestazioni della rete, è stato utilizzato il dataset SUN-397 \cite{xiao2016sun}, un insieme di immagini di scene che comprende 397 categorie. Le prestazioni della rete sono state confrontate sia con il classico fine-tuning che con una versione della rete con capacità aumentata. Le due principali modifiche apportate alla rete includono: Depth Augmented CNN (DA-CNN), che prevede l'aggiunta di un nuovo strato completamente connesso, e Width Augmented CNN (WA-CNN), che consiste nell'aggiunta di nuovi neuroni a uno strato preesistente.
+Le reti potenziate (DA-CNN e WA-CNN) hanno mostrato prestazioni superiori rispetto al classico fine-tuning, in particolare nel caso della rete WA-CNN, sebbene i guadagni diminuiscano progressivamente con l'aggiunta di nuove unità. Inoltre, le reti migliorate hanno mantenuto la loro accuratezza anche sul compito originale, evidenziando l'importanza di bilanciare il ritmo di apprendimento tra i nuovi neuroni e quelli preesistenti.
+In conclusione l'adozione di concetti di reti sviluppative nei LLMs potrebbe portare a miglioramenti significativi in termini di adattabilità, efficienza e capacità di apprendere continuamente senza perdere informazioni precedenti. Questo approccio consentirebbe anche una migliore personalizzazione e specializzazione dei modelli, rendendoli più utili in una varietà di contesti applicativi.
+
+\subsubsection{Parameter Efficent Fine-Tuning}
+Nel corso del tempo, i modelli linguistici di grandi dimensioni hanno progressivamente incrementato il numero di parametri. Quando un modello viene sottoposto a fine-tuning per un'attività specifica, viene generato un nuovo set di pesi. Tuttavia, modificare i pesi ogni volta per adattarsi a un nuovo compito risulta estremamente lento, e mantenere diversi insiemi di pesi si rivela proibitivo sia in termini di costi di archiviazione che di risorse computazionali \cite{pu2023empiricalanalysisstrengthsweaknesses}.\\
+La tecnica PEFT consente di modificare solo una parte dei pesi del modello, mantenendo congelata la restante parte \cite{mao2021unipelt}.\\
+L'esperimento condotto da \cite{pu2023empiricalanalysisstrengthsweaknesses} esegue una valutazione delle diverse tecniche PEFT, stabilendo un framework che facilita la scelta del metodo più appropriato per ciascun scenario.
+FLAN-T5-XL \cite{chung2024scaling} è il modello su cui è stata effettuata l'analisi delle prestazioni tra il completo fine-tuning e le quattro diverse tecniche PEFT: LoRA (Low-Rank Adaptation), \((IA)^3\) (Inter-layer Attention Adaptation), prompt tuning e BitFit.
+I diversi metodi sono stati valutati utilizzando vari set di dati per testare le capacità di classificazione e di generazione. Per la classificazione, sono stati selezionati AG News \cite{zhang2015character} e CoLA \cite{warstadt2019neural}, mentre per la generazione sono stati scelti E2E Dataset \cite{novikova2017e2e} e SAMSum \cite{gliwa2019samsum}.
+Per garantire una valutazione coerente attraverso i diversi set di dati, sono state adottate tre scale di dati: low-resource, medium-resource e high-resource.
+Low-resource è la scala che testa la capacità di un modello di gestire scenari con risorse limitate, con al massimo 100 punti dati.
+Medium-resource valuta il modello in scenari con risorse moderate, con un massimo di 1.000 punti dati, rappresentando condizioni più realistiche rispetto alle altre scale.
+High-resource esamina il modello in scenari con una quantità relativamente alta di dati, con un massimo di 10.000 punti dati.\\
+La figura \ref{fig:resources-scaling} mostra come le tecniche PEFT siano più lente del completo fine-tuning a convergere nei scenari low/medium-resources, mentre molto più veloca quando hanno a disposizione elevate dosi di dati.
+È emerso che esiste una chiara distinzione tra velocità e prestazioni: le tecniche PEFT, quando la convergenza è più lenta, tendono a offrire migliori prestazioni. Lo stesso concetto si applica anche al fine-tuning completo.
+La figura \ref{fig:PEFT-benchmarks} dimostra che non esiste un metodo che eccelle costantemente in tutte le situazioni, invece, ci sono scenari specifici in cui un metodo risulta migliore rispetto agli altri.
+L'unica eccezione è rappresentata dal metodo LoRA, che si dimostra più robusto rispetto alle altre tecniche quando il numero dei parametri viene ridotto. Questa caratteristica è particolarmente importante, poiché una riduzione del 50\% dei parametri consente al modello di essere più efficiente ed adattabile.\\
+In conclusione, si può affermare che le tecniche descritte contribuiscono significativamente all'affinamento e all'assegnazione di nuovi compiti specifici ai modelli di linguaggio. Recentemente, è emerso un nuovo approccio denominato Retrieval Augmented Generation (RAG), che consente di arricchire i modelli di linguaggio con ulteriore conoscenza senza la necessità di un addestramento supplementare.
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.3\textwidth]{Immagini/low_medium_resources.png}
+	\caption{Confronto tra diverse tecniche di PEFT in termini di tempo totale di esecuzione degli esperimenti, normalizzato rispetto al tempo totale di addestramento completo del modello \cite{pu2023empiricalanalysisstrengthsweaknesses}.}
+	\label{fig:resources-scaling}
+\end{figure}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.3\textwidth]{Immagini/PEFT-benchmarking.png}
+	\caption{
+        Il benchmarking del modello FLAN-T5 è stato effettuato su diversi set di dati. Per AG News e CoLA, è stata misurata l'accuratezza basata su una corrispondenza esatta delle stringhe, mentre per E2E Dataset e SAMSum si è stimato il ROUGE-L, che misura la lunghezza della sottosequenza comune più lunga, con valori più alti che indicano prestazioni migliori \cite{pu2023empiricalanalysisstrengthsweaknesses}.}
+	\label{fig:PEFT-benchmarks}
+\end{figure}
+
+\subsection{Retrieval Augmented Generation (RAG)}
+Il Retrieval Augmented Generation (RAG) è un metodo che amplia la conoscenza dei modelli pre-addestrati attraverso l'utilizzo di un sistema di recupero delle informazioni (IR). Questo sistema arricchisce il prompt originale integrandolo con documenti o frammenti di testo pertinenti, migliorando così le capacità del modello di generare risposte più accurate e informate \cite{cuconasu2024power}.
+Le tecniche di Information Retrieval (IR), come il Vector Space Model e il TF-IDF scoring, sono state introdotte negli anni '80 per quantificare la similarità testuale \cite{salton1983introduction}. Un'evoluzione significativa è arrivata con l'avvento dei dense retrievers, che sono in grado di catturare le relazioni semantiche tra i testi, permettendo un recupero delle informazioni più accurato e basato sul significato \cite{cuconasu2024power}. In pochi anni, questi modelli, come ad esempio DPR \cite{karpukhin2020dense}, hanno dimostrato di poter competere con i modelli IR tradizionali citati in precedenza.\\
+Il lavoro svolto da \cite{lewis2020retrieval} ha introdotto il termine RAG, combinando un dense retriever con un modello di generazione di testo. Questo approccio consente di integrare le informazioni recuperate, migliorando la capacità del modello di generare risposte più informate e rilevanti nel contesto. Successivamente, questo approccio è stato ripreso e ulteriormente sviluppato nei modelli di linguaggio più recenti \cite{mialon2023augmented}.
+
+\subsubsection{RAG ed LLMs}
+La combinazione tra RAG e Large Language Models (LLMs) risulta particolarmente efficace perché consente di recuperare dati e documenti rilevanti per una domanda o operazione specifica e di fornire tali informazioni come contesto al modello di linguaggio scelto. Questo approccio migliora la precisione e la pertinenza delle risposte generate, sfruttando al massimo le risorse informative disponibili \cite{databricks2024rag}.\\
+La figura \ref{fig:RAG-architecture} illustra come viene comunemente implementata un'applicazione RAG, evidenziando le diverse fasi del processo.
+Il primo passo consiste nel recuperare i documenti che si desidera utilizzare. Questi documenti vengono poi suddivisi in parti più piccole, chiamate chunk, la cui lunghezza dipende dal modello di embedding e di linguaggio impiegato.
+Nella seconda fase, i chunk dei documenti vengono trasformati in vettori numerici tramite un modello di embedding. Questi vettori vengono poi utilizzati per popolare un indice di ricerca basato sui vettori, contenente gli embeddings dei documenti. 
+La terza fase utilizza l'indice di ricerca per identificare i chunk di documenti più rilevanti in risposta a una query dell'utente. I dati recuperati vengono poi utilizzati per costruire un prompt che fornisce il contesto necessario al modello di linguaggio.
+L'ultima fase prevede la costruzione dell'applicazione che integra tutti questi passaggi, tramite un'interfaccia API, per facilitare l'interazione con gli utenti e permettere l'utilizzo efficiente del sistema di recupero e generazione di testo.
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.3\textwidth]{Immagini/RAG_architecture.png}
+	\caption{ Prototipo di architettura RAG e flusso di lavoro \cite{databricks2024rag}.}
+	\label{fig:RAG-architecture}
+\end{figure}

@@ -1,0 +1,703 @@
+\begin{thebibliography}{}
+
+\bibitem[Acemoglu and Autor, 2011]{acemoglu2011skills}
+Acemoglu, D. and Autor, D. (2011).
+\newblock Skills, tasks and technologies: Implications for employment and
+  earnings.
+\newblock In {\em Handbook of labor economics}, volume~4, pages 1043--1171.
+  Elsevier.
+
+\bibitem[Achiam et~al., 2023]{achiam2023gpt}
+Achiam, J., Adler, S., Agarwal, S., Ahmad, L., Akkaya, I., Aleman, F.~L.,
+  Almeida, D., Altenschmidt, J., Altman, S., Anadkat, S., et~al. (2023).
+\newblock Gpt-4 technical report.
+\newblock {\em arXiv preprint arXiv:2303.08774}.
+
+\bibitem[Bao et~al., 2023]{bao2023disc}
+Bao, Z., Chen, W., Xiao, S., Ren, K., Wu, J., Zhong, C., Peng, J., Huang, X.,
+  and Wei, Z. (2023).
+\newblock Disc-medllm: Bridging general large language models and real-world
+  medical consultation.
+\newblock {\em arXiv preprint arXiv:2308.14346}.
+
+\bibitem[Bengesi et~al., 2024]{bengesi2024advancements}
+Bengesi, S., El-Sayed, H., Sarker, M.~K., Houkpati, Y., Irungu, J., and
+  Oladunni, T. (2024).
+\newblock Advancements in generative ai: A comprehensive review of gans, gpt,
+  autoencoders, diffusion model, and transformers.
+\newblock {\em IEEE Access}.
+
+\bibitem[Biswas, 2023]{biswas2023role}
+Biswas, S.~S. (2023).
+\newblock Role of chat gpt in public health.
+\newblock {\em Annals of biomedical engineering}, 51(5):868--869.
+
+\bibitem[Brophy et~al., 2023]{brophy2023generative}
+Brophy, E., Wang, Z., She, Q., and Ward, T. (2023).
+\newblock Generative adversarial networks in time series: A systematic
+  literature review.
+\newblock {\em ACM Computing Surveys}, 55(10):1--31.
+
+\bibitem[Burgess, 2023]{burgess2023chatgpt}
+Burgess, M. (2023).
+\newblock Chatgpt has a big privacy problem.
+\newblock {\em WIRED. April}, 4:2023.
+
+\bibitem[Calbimonte, 2023]{calbimonte2023powershell}
+Calbimonte (2023).
+\newblock Chatgpt and powershell – some practical examples.
+\newblock {\em SQL Server Central}.
+
+\bibitem[Chakraborty et~al., 2023]{chakraborty2023artificial}
+Chakraborty, C., Bhattacharya, M., and Lee, S.-S. (2023).
+\newblock Artificial intelligence enabled chatgpt and large language models in
+  drug target discovery, drug discovery, and development.
+\newblock {\em Molecular Therapy-Nucleic Acids}, 33:866--868.
+
+\bibitem[Chen et~al., 2023a]{chen2023fiction}
+Chen, B., Wu, Z., and Zhao, R. (2023a).
+\newblock From fiction to fact: the growing role of generative ai in business
+  and finance.
+\newblock {\em Journal of Chinese Economic and Business Studies},
+  21(4):471--496.
+
+\bibitem[Chen et~al., 2021]{chen2021evaluating}
+Chen, M., Tworek, J., Jun, H., Yuan, Q., Pinto, H. P. D.~O., Kaplan, J.,
+  Edwards, H., Burda, Y., Joseph, N., Brockman, G., et~al. (2021).
+\newblock Evaluating large language models trained on code.
+\newblock {\em arXiv preprint arXiv:2107.03374}.
+
+\bibitem[Chen et~al., 2023b]{chen2023bianque}
+Chen, Y., Wang, Z., Xing, X., Xu, Z., Fang, K., Wang, J., Li, S., Wu, J., Liu,
+  Q., Xu, X., et~al. (2023b).
+\newblock Bianque: Balancing the questioning and suggestion ability of health
+  llms with multi-turn health conversations polished by chatgpt.
+\newblock {\em arXiv preprint arXiv:2310.15896}.
+
+\bibitem[Chu et~al., 2017]{chu2017cyclegan}
+Chu, C., Zhmoginov, A., and Sandler, M. (2017).
+\newblock Cyclegan, a master of steganography.
+\newblock {\em arXiv preprint arXiv:1712.02950}.
+
+\bibitem[Chung et~al., 2024]{chung2024scaling}
+Chung, H.~W., Hou, L., Longpre, S., Zoph, B., Tay, Y., Fedus, W., Li, Y., Wang,
+  X., Dehghani, M., Brahma, S., et~al. (2024).
+\newblock Scaling instruction-finetuned language models.
+\newblock {\em Journal of Machine Learning Research}, 25(70):1--53.
+
+\bibitem[Cuconasu et~al., 2024]{cuconasu2024power}
+Cuconasu, F., Trappolini, G., Siciliano, F., Filice, S., Campagnano, C.,
+  Maarek, Y., Tonellotto, N., and Silvestri, F. (2024).
+\newblock The power of noise: Redefining retrieval for rag systems.
+\newblock In {\em Proceedings of the 47th International ACM SIGIR Conference on
+  Research and Development in Information Retrieval}, pages 719--729.
+
+\bibitem[Databricks, 2024]{databricks2024rag}
+Databricks (2024).
+\newblock Retrieval augmented generation.
+\newblock Accessed: 12 August 2024.
+
+\bibitem[Devlin et~al., 2018]{devlin2018bert}
+Devlin, J., Chang, M.-W., Lee, K., and Toutanova, K. (2018).
+\newblock Bert: Pre-training of deep bidirectional transformers for language
+  understanding.
+\newblock {\em arXiv preprint arXiv:1810.04805}.
+
+\bibitem[Dong et~al., 2023]{dong2023probing}
+Dong, X., Wang, Y., Yu, P.~S., and Caverlee, J. (2023).
+\newblock Probing explicit and implicit gender bias through llm conditional
+  text generation.
+\newblock {\em arXiv preprint arXiv:2311.00306}.
+
+\bibitem[D’Antonoli et~al., 2024]{d2024large}
+D’Antonoli, T.~A., Stanzione, A., Bluethgen, C., Vernuccio, F., Ugga, L.,
+  Klontzas, M.~E., Cuocolo, R., Cannella, R., and Ko{\c{c}}ak, B. (2024).
+\newblock Large language models in radiology: fundamentals, applications,
+  ethical considerations, risks, and future directions.
+\newblock {\em Diagnostic and Interventional Radiology}, 30(2):80.
+
+\bibitem[Fang et~al., 2024]{fang2024bias}
+Fang, X., Che, S., Mao, M., Zhang, H., Zhao, M., and Zhao, X. (2024).
+\newblock Bias of ai-generated content: an examination of news produced by
+  large language models.
+\newblock {\em Scientific Reports}, 14(1):5224.
+
+\bibitem[Fang et~al., 2023]{fang2023method}
+Fang, X., Wang, F., Liu, L., He, J., Lin, D., Xiang, Y., Zhu, K., Zhang, X.,
+  Wu, H., Li, H., et~al. (2023).
+\newblock A method for multiple-sequence-alignment-free protein structure
+  prediction using a protein language model.
+\newblock {\em Nature Machine Intelligence}, 5(10):1087--1096.
+
+\bibitem[Feldman et~al., 2019]{feldman2019development}
+Feldman, J., Thomas-Bachli, A., Forsyth, J., Patel, Z.~H., and Khan, K. (2019).
+\newblock Development of a global infectious disease activity database using
+  natural language processing, machine learning, and human expertise.
+\newblock {\em Journal of the American Medical Informatics Association},
+  26(11):1355--1359.
+
+\bibitem[Felkner et~al., 2023]{felkner2023winoqueer}
+Felkner, V.~K., Chang, H.-C.~H., Jang, E., and May, J. (2023).
+\newblock Winoqueer: A community-in-the-loop benchmark for anti-lgbtq+ bias in
+  large language models.
+\newblock {\em arXiv preprint arXiv:2306.15087}.
+
+\bibitem[Feuerriegel et~al., 2024]{feuerriegel2024generative}
+Feuerriegel, S., Hartmann, J., Janiesch, C., and Zschech, P. (2024).
+\newblock Generative ai.
+\newblock {\em Business \& Information Systems Engineering}, 66(1):111--126.
+
+\bibitem[Fischer and Mandell, 2009]{fischer2009michael}
+Fischer, F. and Mandell, A. (2009).
+\newblock Michael polanyi's republic of science: the tacit dimension.
+\newblock {\em Science as Culture}, 18(1):23--46.
+
+\bibitem[Floridi and Chiriatti, 2020]{floridi2020gpt}
+Floridi, L. and Chiriatti, M. (2020).
+\newblock Gpt-3: Its nature, scope, limits, and consequences.
+\newblock {\em Minds and Machines}, 30:681--694.
+
+\bibitem[Girshick et~al., 2014]{girshick2014rich}
+Girshick, R., Donahue, J., Darrell, T., and Malik, J. (2014).
+\newblock Rich feature hierarchies for accurate object detection and semantic
+  segmentation.
+\newblock In {\em Proceedings of the IEEE conference on computer vision and
+  pattern recognition}, pages 580--587.
+
+\bibitem[Gliwa et~al., 2019]{gliwa2019samsum}
+Gliwa, B., Mochol, I., Biesek, M., and Wawer, A. (2019).
+\newblock Samsum corpus: A human-annotated dialogue dataset for abstractive
+  summarization.
+\newblock {\em arXiv preprint arXiv:1911.12237}.
+
+\bibitem[Goodfellow et~al., 2020]{goodfellow2020generative}
+Goodfellow, I., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-Farley, D., Ozair,
+  S., Courville, A., and Bengio, Y. (2020).
+\newblock Generative adversarial networks.
+\newblock {\em Communications of the ACM}, 63(11):139--144.
+
+\bibitem[Gr{\"u}nebaum et~al., 2023]{grunebaum2023exciting}
+Gr{\"u}nebaum, A., Chervenak, J., Pollet, S.~L., Katz, A., and Chervenak, F.~A.
+  (2023).
+\newblock The exciting potential for chatgpt in obstetrics and gynecology.
+\newblock {\em American Journal of Obstetrics and Gynecology}, 228(6):696--705.
+
+\bibitem[G{\"u}ng{\"o}r et~al., 2023]{gungor2023adaptive}
+G{\"u}ng{\"o}r, A., Dar, S.~U., {\"O}zt{\"u}rk, {\c{S}}., Korkmaz, Y., Bedel,
+  H.~A., Elmas, G., Ozbey, M., and {\c{C}}ukur, T. (2023).
+\newblock Adaptive diffusion priors for accelerated mri reconstruction.
+\newblock {\em Medical image analysis}, 88:102872.
+
+\bibitem[Gupta et~al., 2023]{10198233}
+Gupta, M., Akiri, C., Aryal, K., Parker, E., and Praharaj, L. (2023).
+\newblock From chatgpt to threatgpt: Impact of generative ai in cybersecurity
+  and privacy.
+\newblock {\em IEEE Access}, 11:80218--80245.
+
+\bibitem[Han et~al., 2022]{han2022survey}
+Han, K., Wang, Y., Chen, H., Chen, X., Guo, J., Liu, Z., Tang, Y., Xiao, A.,
+  Xu, C., Xu, Y., et~al. (2022).
+\newblock A survey on vision transformer.
+\newblock {\em IEEE transactions on pattern analysis and machine intelligence},
+  45(1):87--110.
+
+\bibitem[He et~al., 2024]{he2024pefomed}
+He, J., Li, P., Liu, G., Zhao, Z., and Zhong, S. (2024).
+\newblock Pefomed: Parameter efficient fine-tuning on multimodal large language
+  models for medical visual question answering.
+\newblock {\em arXiv preprint arXiv:2401.02797}.
+
+\bibitem[Henighan et~al., 2020]{henighan2020scaling}
+Henighan, T., Kaplan, J., Katz, M., Chen, M., Hesse, C., Jackson, J., Jun, H.,
+  Brown, T.~B., Dhariwal, P., Gray, S., et~al. (2020).
+\newblock Scaling laws for autoregressive generative modeling.
+\newblock {\em arXiv preprint arXiv:2010.14701}.
+
+\bibitem[Hinton and Salakhutdinov, 2006]{hinton2006reducing}
+Hinton, G.~E. and Salakhutdinov, R.~R. (2006).
+\newblock Reducing the dimensionality of data with neural networks.
+\newblock {\em science}, 313(5786):504--507.
+
+\bibitem[Ho et~al., 2020]{ho2020denoising}
+Ho, J., Jain, A., and Abbeel, P. (2020).
+\newblock Denoising diffusion probabilistic models.
+\newblock {\em Advances in neural information processing systems},
+  33:6840--6851.
+
+\bibitem[Hochreiter and Schmidhuber, 1997]{hochreiter1997long}
+Hochreiter, S. and Schmidhuber, J. (1997).
+\newblock Long short-term memory.
+\newblock {\em Neural computation}, 9(8):1735--1780.
+
+\bibitem[Hopfield and Tank, 1985]{hopfield1985neural}
+Hopfield, J.~J. and Tank, D.~W. (1985).
+\newblock “neural” computation of decisions in optimization problems.
+\newblock {\em Biological cybernetics}, 52(3):141--152.
+
+\bibitem[Huang et~al., 2023]{huang2023chatgpt}
+Huang, H., Zheng, O., Wang, D., Yin, J., Wang, Z., Ding, S., Yin, H., Xu, C.,
+  Yang, R., Zheng, Q., et~al. (2023).
+\newblock Chatgpt for shaping the future of dentistry: the potential of
+  multi-modal large language model.
+\newblock {\em International Journal of Oral Science}, 15(1):29.
+
+\bibitem[Isola et~al., 2017]{isola2017image}
+Isola, P., Zhu, J.-Y., Zhou, T., and Efros, A.~A. (2017).
+\newblock Image-to-image translation with conditional adversarial networks.
+\newblock In {\em Proceedings of the IEEE conference on computer vision and
+  pattern recognition}, pages 1125--1134.
+
+\bibitem[Jeyaraman et~al., 2023]{jeyaraman2023chatgpt}
+Jeyaraman, M., Ramasubramanian, S., Balaji, S., Jeyaraman, N., Nallakumarasamy,
+  A., and Sharma, S. (2023).
+\newblock Chatgpt in action: Harnessing artificial intelligence potential and
+  addressing ethical challenges in medicine, education, and scientific
+  research.
+\newblock {\em World Journal of Methodology}, 13(4):170.
+
+\bibitem[Karpukhin et~al., 2020]{karpukhin2020dense}
+Karpukhin, V., O{\u{g}}uz, B., Min, S., Lewis, P., Wu, L., Edunov, S., Chen,
+  D., and Yih, W.-t. (2020).
+\newblock Dense passage retrieval for open-domain question answering.
+\newblock {\em arXiv preprint arXiv:2004.04906}.
+
+\bibitem[Kasneci et~al., 2023]{kasneci2023chatgpt}
+Kasneci, E., Se{\ss}ler, K., K{\"u}chemann, S., Bannert, M., Dementieva, D.,
+  Fischer, F., Gasser, U., Groh, G., G{\"u}nnemann, S., H{\"u}llermeier, E.,
+  et~al. (2023).
+\newblock Chatgpt for good? on opportunities and challenges of large language
+  models for education.
+\newblock {\em Learning and individual differences}, 103:102274.
+
+\bibitem[Katz and Murphy, 1992]{katz1992changes}
+Katz, L.~F. and Murphy, K.~M. (1992).
+\newblock Changes in relative wages, 1963--1987: supply and demand factors.
+\newblock {\em The quarterly journal of economics}, 107(1):35--78.
+
+\bibitem[Keskar et~al., 2019]{keskar2019ctrl}
+Keskar, N.~S., McCann, B., Varshney, L.~R., Xiong, C., and Socher, R. (2019).
+\newblock Ctrl: A conditional transformer language model for controllable
+  generation.
+\newblock {\em arXiv preprint arXiv:1909.05858}.
+
+\bibitem[Koco{\'n} et~al., 2023]{kocon2023chatgpt}
+Koco{\'n}, J., Cichecki, I., Kaszyca, O., Kochanek, M., Szyd{\l}o, D., Baran,
+  J., Bielaniewicz, J., Gruza, M., Janz, A., Kanclerz, K., et~al. (2023).
+\newblock Chatgpt: Jack of all trades, master of none.
+\newblock {\em Information Fusion}, 99:101861.
+
+\bibitem[Koleilat et~al., 2024]{koleilat2024medclip}
+Koleilat, T., Asgariandehkordi, H., Rivaz, H., and Xiao, Y. (2024).
+\newblock Medclip-sam: Bridging text and image towards universal medical image
+  segmentation.
+\newblock {\em arXiv preprint arXiv:2403.20253}.
+
+\bibitem[Kotek et~al., 2023]{kotek2023gender}
+Kotek, H., Dockum, R., and Sun, D. (2023).
+\newblock Gender bias and stereotypes in large language models.
+\newblock In {\em Proceedings of the ACM collective intelligence conference},
+  pages 12--24.
+
+\bibitem[Kraljevic et~al., 2021]{kraljevic2021medgpt}
+Kraljevic, Z., Shek, A., Bean, D., Bendayan, R., Teo, J., and Dobson, R.
+  (2021).
+\newblock Medgpt: Medical concept prediction from clinical narratives.
+\newblock {\em arXiv preprint arXiv:2107.03134}.
+
+\bibitem[Krizhevsky et~al., 2017]{krizhevsky2017imagenet}
+Krizhevsky, A., Sutskever, I., and Hinton, G.~E. (2017).
+\newblock Imagenet classification with deep convolutional neural networks.
+\newblock {\em Communications of the ACM}, 60(6):84--90.
+
+\bibitem[LeCun et~al., 1998]{lecun1998gradient}
+LeCun, Y., Bottou, L., Bengio, Y., and Haffner, P. (1998).
+\newblock Gradient-based learning applied to document recognition.
+\newblock {\em Proceedings of the IEEE}, 86(11):2278--2324.
+
+\bibitem[Lee et~al., 2020]{lee2020biobert}
+Lee, J., Yoon, W., Kim, S., Kim, D., Kim, S., So, C.~H., and Kang, J. (2020).
+\newblock Biobert: a pre-trained biomedical language representation model for
+  biomedical text mining.
+\newblock {\em Bioinformatics}, 36(4):1234--1240.
+
+\bibitem[Lei et~al., 2023]{lei2023medlsam}
+Lei, W., Wei, X., Zhang, X., Li, K., and Zhang, S. (2023).
+\newblock Medlsam: Localize and segment anything model for 3d medical images.
+\newblock {\em arXiv preprint arXiv:2306.14752}.
+
+\bibitem[Levac et~al., 2023]{levac2023mri}
+Levac, B., Jalal, A., Ramchandran, K., and Tamir, J.~I. (2023).
+\newblock Mri reconstruction with side information using diffusion models.
+\newblock In {\em 2023 57th Asilomar Conference on Signals, Systems, and
+  Computers}, pages 1436--1442. IEEE.
+
+\bibitem[Lewis et~al., 2020]{lewis2020retrieval}
+Lewis, P., Perez, E., Piktus, A., Petroni, F., Karpukhin, V., Goyal, N.,
+  K{\"u}ttler, H., Lewis, M., Yih, W.-t., Rockt{\"a}schel, T., et~al. (2020).
+\newblock Retrieval-augmented generation for knowledge-intensive nlp tasks.
+\newblock {\em Advances in Neural Information Processing Systems},
+  33:9459--9474.
+
+\bibitem[Li et~al., 2023a]{li2023chatdoctor}
+Li, Y., Li, Z., Zhang, K., Dan, R., Jiang, S., and Zhang, Y. (2023a).
+\newblock Chatdoctor: A medical chat model fine-tuned on a large language model
+  meta-ai (llama) using medical domain knowledge.
+\newblock {\em Cureus}, 15(6).
+
+\bibitem[Li et~al., 2023b]{li2023lvit}
+Li, Z., Li, Y., Li, Q., Wang, P., Guo, D., Lu, L., Jin, D., Zhang, Y., and
+  Hong, Q. (2023b).
+\newblock Lvit: language meets vision transformer in medical image
+  segmentation.
+\newblock {\em IEEE transactions on medical imaging}.
+
+\bibitem[Liang et~al., 2022]{liang2022holistic}
+Liang, P., Bommasani, R., Lee, T., Tsipras, D., Soylu, D., Yasunaga, M., Zhang,
+  Y., Narayanan, D., Wu, Y., Kumar, A., et~al. (2022).
+\newblock Holistic evaluation of language models.
+\newblock {\em arXiv preprint arXiv:2211.09110}.
+
+\bibitem[Lin et~al., 2022]{lin2022pangu}
+Lin, X., Xu, C., Xiong, Z., Zhang, X., Ni, N., Ni, B., Chang, J., Pan, R.,
+  Wang, Z., Yu, F., et~al. (2022).
+\newblock Pangu drug model: learn a molecule like a human.
+\newblock {\em Biorxiv}, pages 2022--03.
+
+\bibitem[Liu et~al., 2023]{liu2023medical}
+Liu, F., Zhu, T., Wu, X., Yang, B., You, C., Wang, C., Lu, L., Liu, Z., Zheng,
+  Y., Sun, X., et~al. (2023).
+\newblock A medical multimodal large language model for future pandemics.
+\newblock {\em NPJ Digital Medicine}, 6(1):226.
+
+\bibitem[Luo et~al., 2022]{luo2022biogpt}
+Luo, R., Sun, L., Xia, Y., Qin, T., Zhang, S., Poon, H., and Liu, T.-Y. (2022).
+\newblock Biogpt: generative pre-trained transformer for biomedical text
+  generation and mining.
+\newblock {\em Briefings in bioinformatics}, 23(6):bbac409.
+
+\bibitem[Luo et~al., 2023]{luo2023towards}
+Luo, Y., Liu, X.~Y., Yang, K., Huang, K., Hong, M., Zhang, J., Wu, Y., and Nie,
+  Z. (2023).
+\newblock Towards unified ai drug discovery with multiple knowledge modalities.
+\newblock {\em arXiv preprint arXiv:2305.01523}.
+
+\bibitem[Maddison, 2023]{maddison2023samsung}
+Maddison, L. (2023).
+\newblock Samsung workers made a major error by using chatgpt.
+\newblock {\em techradar pro, available at: www. techradar.
+  com/news/samsung-workers-leaked-company-secrets-by-using-chatgpt (accessed 29
+  May 2023)}.
+
+\bibitem[Mao et~al., 2023]{mao2023transformer}
+Mao, J., Wang, J., Zeb, A., Cho, K.-H., Jin, H., Kim, J., Lee, O., Wang, Y.,
+  and No, K.~T. (2023).
+\newblock Transformer-based molecular generative model for antiviral drug
+  design.
+\newblock {\em Journal of chemical information and modeling}, 64(7):2733--2745.
+
+\bibitem[Mao et~al., 2021]{mao2021unipelt}
+Mao, Y., Mathias, L., Hou, R., Almahairi, A., Ma, H., Han, J., Yih, W.-t., and
+  Khabsa, M. (2021).
+\newblock Unipelt: A unified framework for parameter-efficient language model
+  tuning.
+\newblock {\em arXiv preprint arXiv:2110.07577}.
+
+\bibitem[Masalkhi et~al., 2024]{masalkhi2024google}
+Masalkhi, M., Ong, J., Waisberg, E., and Lee, A.~G. (2024).
+\newblock Google deepmind’s gemini ai versus chatgpt: A comparative analysis
+  in ophthalmology.
+\newblock {\em Eye}, pages 1--6.
+
+\bibitem[Meta, 2023]{meta2023introducing}
+Meta, A. (2023).
+\newblock Introducing llama: A foundational, 65-billion-parameter large
+  language model.
+\newblock {\em Meta AI}.
+
+\bibitem[Mialon et~al., 2023]{mialon2023augmented}
+Mialon, G., Dess{\`\i}, R., Lomeli, M., Nalmpantis, C., Pasunuru, R., Raileanu,
+  R., Rozi{\`e}re, B., Schick, T., Dwivedi-Yu, J., Celikyilmaz, A., et~al.
+  (2023).
+\newblock Augmented language models: a survey.
+\newblock {\em arXiv preprint arXiv:2302.07842}.
+
+\bibitem[M{\"u}ller-Franzes et~al., 2023]{muller2023multimodal}
+M{\"u}ller-Franzes, G., Niehues, J.~M., Khader, F., Arasteh, S.~T., Haarburger,
+  C., Kuhl, C., Wang, T., Han, T., Nolte, T., Nebelung, S., et~al. (2023).
+\newblock A multimodal comparison of latent denoising diffusion probabilistic
+  models and generative adversarial networks for medical image synthesis.
+\newblock {\em Scientific Reports}, 13(1):12098.
+
+\bibitem[Narang and Chowdhery, 2022]{narang2022pathways}
+Narang, S. and Chowdhery, A. (2022).
+\newblock Pathways language model (palm): Scaling to 540 billion parameters for
+  breakthrough performance.
+\newblock {\em Google AI Blog}.
+
+\bibitem[Nguyen and Nadi, 2022]{nguyen2022empirical}
+Nguyen, N. and Nadi, S. (2022).
+\newblock An empirical evaluation of github copilot's code suggestions.
+\newblock In {\em Proceedings of the 19th International Conference on Mining
+  Software Repositories}, pages 1--5.
+
+\bibitem[Novikova et~al., 2017]{novikova2017e2e}
+Novikova, J., Du{\v{s}}ek, O., and Rieser, V. (2017).
+\newblock The e2e dataset: New challenges for end-to-end generation.
+\newblock {\em arXiv preprint arXiv:1706.09254}.
+
+\bibitem[Omiye et~al., 2024]{omiye2024large}
+Omiye, J.~A., Gui, H., Rezaei, S.~J., Zou, J., and Daneshjou, R. (2024).
+\newblock Large language models in medicine: the potentials and pitfalls: a
+  narrative review.
+\newblock {\em Annals of Internal Medicine}, 177(2):210--220.
+
+\bibitem[{\"O}zbey et~al., 2023]{ozbey2023unsupervised}
+{\"O}zbey, M., Dalmaz, O., Dar, S.~U., Bedel, H.~A., {\"O}zturk, {\c{S}}.,
+  G{\"u}ng{\"o}r, A., and {\c{C}}ukur, T. (2023).
+\newblock Unsupervised medical image translation with adversarial diffusion
+  models.
+\newblock {\em IEEE Transactions on Medical Imaging}.
+
+\bibitem[Poremba, 2023]{poremba2023chatgpt}
+Poremba, S. (2023).
+\newblock Chatgpt confirms data breach, raising security concerns.
+\newblock {\em Retrieved from Security Intelligence website:
+  https://securityintelligence. com/articles/chatgpt-confirms-data-breach}.
+
+\bibitem[Pu et~al., 2023]{pu2023empiricalanalysisstrengthsweaknesses}
+Pu, G., Jain, A., Yin, J., and Kaplan, R. (2023).
+\newblock Empirical analysis of the strengths and weaknesses of peft techniques
+  for llms.
+
+\bibitem[Puladi et~al., 2023]{puladi2023impact}
+Puladi, B., Gsaxner, C., Kleesiek, J., H{\"o}lzle, F., R{\"o}hrig, R., and
+  Egger, J. (2023).
+\newblock The impact and opportunities of large language models like chatgpt in
+  oral and maxillofacial surgery: a narrative review.
+\newblock {\em International journal of oral and maxillofacial surgery}.
+
+\bibitem[Qiu et~al., 2023]{qiu2023smile}
+Qiu, H., He, H., Zhang, S., Li, A., and Lan, Z. (2023).
+\newblock Smile: Single-turn to multi-turn inclusive language expansion via
+  chatgpt for mental health support.
+\newblock {\em arXiv preprint arXiv:2305.00450}.
+
+\bibitem[Raffel et~al., 2020]{raffel2020exploring}
+Raffel, C., Shazeer, N., Roberts, A., Lee, K., Narang, S., Matena, M., Zhou,
+  Y., Li, W., and Liu, P.~J. (2020).
+\newblock Exploring the limits of transfer learning with a unified text-to-text
+  transformer.
+\newblock {\em Journal of machine learning research}, 21(140):1--67.
+
+\bibitem[Russakovsky et~al., 2015]{russakovsky2015imagenet}
+Russakovsky, O., Deng, J., Su, H., Krause, J., Satheesh, S., Ma, S., Huang, Z.,
+  Karpathy, A., Khosla, A., Bernstein, M., et~al. (2015).
+\newblock Imagenet large scale visual recognition challenge.
+\newblock {\em International journal of computer vision}, 115:211--252.
+
+\bibitem[Salton, 1983]{salton1983introduction}
+Salton, G. (1983).
+\newblock Introduction to modern information retrieval.
+\newblock {\em McGraw-Hill}.
+
+\bibitem[Schwartz et~al., 2024]{schwartz2024black}
+Schwartz, I.~S., Link, K.~E., Daneshjou, R., and Cort{\'e}s-Penfield, N.
+  (2024).
+\newblock Black box warning: large language models and the future of infectious
+  diseases consultation.
+\newblock {\em Clinical infectious diseases}, 78(4):860--866.
+
+\bibitem[Shaikh et~al., 2022]{shaikh2022second}
+Shaikh, O., Zhang, H., Held, W., Bernstein, M., and Yang, D. (2022).
+\newblock On second thought, let's not think step by step! bias and toxicity in
+  zero-shot reasoning.
+\newblock {\em arXiv preprint arXiv:2212.08061}.
+
+\bibitem[Shi et~al., 2023]{shi2023llm}
+Shi, X., Xu, J., Ding, J., Pang, J., Liu, S., Luo, S., Peng, X., Lu, L., Yang,
+  H., Hu, M., et~al. (2023).
+\newblock Llm-mini-cex: Automatic evaluation of large language model for
+  diagnostic conversation.
+\newblock {\em arXiv preprint arXiv:2308.07635}.
+
+\bibitem[Shokrollahi et~al., 2023]{shokrollahi2023comprehensive}
+Shokrollahi, Y., Yarmohammadtoosky, S., Nikahd, M.~M., Dong, P., Li, X., and
+  Gu, L. (2023).
+\newblock A comprehensive review of generative ai in healthcare.
+\newblock {\em arXiv preprint arXiv:2310.00795}.
+
+\bibitem[Singhal et~al., 2023]{singhal2023large}
+Singhal, K., Azizi, S., Tu, T., Mahdavi, S.~S., Wei, J., Chung, H.~W., Scales,
+  N., Tanwani, A., Cole-Lewis, H., Pfohl, S., et~al. (2023).
+\newblock Large language models encode clinical knowledge.
+\newblock {\em Nature}, 620(7972):172--180.
+
+\bibitem[Su et~al., 2023]{su2023fake}
+Su, J., Zhuo, T.~Y., Mansurov, J., Wang, D., and Nakov, P. (2023).
+\newblock Fake news detectors are biased against texts generated by large
+  language models.
+\newblock {\em arXiv preprint arXiv:2309.08674}.
+
+\bibitem[Talat et~al., 2022]{talat2022you}
+Talat, Z., N{\'e}v{\'e}ol, A., Biderman, S., Clinciu, M., Dey, M., Longpre, S.,
+  Luccioni, S., Masoud, M., Mitchell, M., Radev, D., et~al. (2022).
+\newblock You reap what you sow: On the challenges of bias evaluation under
+  multilingual settings.
+\newblock In {\em Proceedings of BigScience Episode\# 5--Workshop on Challenges
+  \& Perspectives in Creating Large Language Models}, pages 26--41.
+
+\bibitem[Turing, 2004]{turing2004intelligent}
+Turing, A. (2004).
+\newblock Intelligent machinery (1948).
+\newblock {\em B. Jack Copeland}, page 395.
+
+\bibitem[Turing, 2009]{turing2009computing}
+Turing, A.~M. (2009).
+\newblock {\em Computing machinery and intelligence}.
+\newblock Springer.
+
+\bibitem[Urchs et~al., 2023]{urchs2023prevalent}
+Urchs, S., Thurner, V., A{\ss}enmacher, M., Heumann, C., and Thiemichen, S.
+  (2023).
+\newblock How prevalent is gender bias in chatgpt?--exploring german and
+  english chatgpt responses.
+\newblock {\em arXiv preprint arXiv:2310.03031}.
+
+\bibitem[Urman and Makhortykh, 2023]{urman2023silence}
+Urman, A. and Makhortykh, M. (2023).
+\newblock The silence of the llms: Cross-lingual analysis of political bias and
+  false information prevalence in chatgpt, google bard, and bing chat.
+
+\bibitem[Vaswani et~al., 2017]{vaswani2017attention}
+Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A.~N.,
+  Kaiser, {\L}., and Polosukhin, I. (2017).
+\newblock Attention is all you need.
+\newblock {\em Advances in neural information processing systems}, 30.
+
+\bibitem[Waisberg et~al., 2023a]{waisberg2023bridging}
+Waisberg, E., Ong, J., Kamran, S.~A., Masalkhi, M., Zaman, N., Sarker, P., Lee,
+  A.~G., and Tavakkoli, A. (2023a).
+\newblock Bridging artificial intelligence in medicine with generative
+  pre-trained transformer (gpt) technology.
+\newblock {\em Journal of Medical Artificial Intelligence}, 6.
+
+\bibitem[Waisberg et~al., 2023b]{waisberg2023chatgpt}
+Waisberg, E., Ong, J., Masalkhi, M., Zaman, N., Kamran, S.~A., Sarker, P., Lee,
+  A.~G., and Tavakkoli, A. (2023b).
+\newblock Chatgpt and medical education: a new frontier for emerging
+  physicians.
+\newblock {\em Canadian Medical Education Journal}, 14(6):128.
+
+\bibitem[Wan et~al., 2023]{wan2023kelly}
+Wan, Y., Pu, G., Sun, J., Garimella, A., Chang, K.-W., and Peng, N. (2023).
+\newblock " kelly is a warm person, joseph is a role model": Gender biases in
+  llm-generated reference letters.
+\newblock {\em arXiv preprint arXiv:2310.09219}.
+
+\bibitem[Wang et~al., 2023a]{wang2023clinicalgpt}
+Wang, G., Yang, G., Du, Z., Fan, L., and Li, X. (2023a).
+\newblock Clinicalgpt: large language models finetuned with diverse medical
+  data and comprehensive evaluation.
+\newblock {\em arXiv preprint arXiv:2306.09968}.
+
+\bibitem[Wang et~al., 2023b]{wang2023huatuo}
+Wang, H., Liu, C., Xi, N., Qiang, Z., Zhao, S., Qin, B., and Liu, T. (2023b).
+\newblock Huatuo: Tuning llama model with chinese medical knowledge.
+\newblock {\em arXiv preprint arXiv:2304.06975}.
+
+\bibitem[Wang et~al., 2021]{wang2021cloud}
+Wang, J., Zhang, G., Wang, W., Zhang, K., and Sheng, Y. (2021).
+\newblock Cloud-based intelligent self-diagnosis and department recommendation
+  service using chinese medical bert.
+\newblock {\em Journal of Cloud Computing}, 10(1):4.
+
+\bibitem[Wang et~al., 2019]{DBLP:journals/corr/abs-1907-07844}
+Wang, Y., Ramanan, D., and Hebert, M. (2019).
+\newblock Growing a brain: Fine-tuning by increasing model capacity.
+\newblock {\em CoRR}, abs/1907.07844.
+
+\bibitem[Warstadt et~al., 2019]{warstadt2019neural}
+Warstadt, A., Singh, A., and Bowman, S.~R. (2019).
+\newblock Neural network acceptability judgments.
+\newblock {\em Transactions of the Association for Computational Linguistics},
+  7:625--641.
+
+\bibitem[Wu et~al., 2024]{wu2024pmc}
+Wu, C., Lin, W., Zhang, X., Zhang, Y., Xie, W., and Wang, Y. (2024).
+\newblock Pmc-llama: toward building open-source language models for medicine.
+\newblock {\em Journal of the American Medical Informatics Association}, page
+  ocae045.
+
+\bibitem[Xiao et~al., 2016]{xiao2016sun}
+Xiao, J., Ehinger, K.~A., Hays, J., Torralba, A., and Oliva, A. (2016).
+\newblock Sun database: Exploring a large collection of scene categories.
+\newblock {\em International Journal of Computer Vision}, 119:3--22.
+
+\bibitem[Xie and Li, 2022]{xie2022measurement}
+Xie, Y. and Li, Q. (2022).
+\newblock Measurement-conditioned denoising diffusion probabilistic model for
+  under-sampled medical image reconstruction.
+\newblock In {\em International Conference on Medical Image Computing and
+  Computer-Assisted Intervention}, pages 655--664. Springer.
+
+\bibitem[Xiong et~al., 2023]{xiong2023doctorglm}
+Xiong, H., Wang, S., Zhu, Y., Zhao, Z., Liu, Y., Huang, L., Wang, Q., and Shen,
+  D. (2023).
+\newblock Doctorglm: Fine-tuning your chinese doctor is not a herculean task.
+\newblock {\em arXiv preprint arXiv:2304.01097}.
+
+\bibitem[Yang et~al., 2022]{yang2022large}
+Yang, X., Chen, A., PourNejatian, N., Shin, H.~C., Smith, K.~E., Parisien, C.,
+  Compas, C., Martin, C., Costa, A.~B., Flores, M.~G., et~al. (2022).
+\newblock A large language model for electronic health records.
+\newblock {\em NPJ digital medicine}, 5(1):194.
+
+\bibitem[Yao et~al., 2024]{yao2024survey}
+Yao, Y., Duan, J., Xu, K., Cai, Y., Sun, Z., and Zhang, Y. (2024).
+\newblock A survey on large language model (llm) security and privacy: The
+  good, the bad, and the ugly.
+\newblock {\em High-Confidence Computing}, page 100211.
+
+\bibitem[Zeiler and Fergus, 2014]{zeiler2014visualizing}
+Zeiler, M.~D. and Fergus, R. (2014).
+\newblock Visualizing and understanding convolutional networks.
+\newblock In {\em Computer Vision--ECCV 2014: 13th European Conference, Zurich,
+  Switzerland, September 6-12, 2014, Proceedings, Part I 13}, pages 818--833.
+  Springer.
+
+\bibitem[Zhang et~al., 2023]{zhang2023turing}
+Zhang, E.~Y., Cheok, A.~D., Pan, Z., Cai, J., and Yan, Y. (2023).
+\newblock From turing to transformers: A comprehensive review and tutorial on
+  the evolution and applications of generative transformer models.
+\newblock {\em Sci}, 5(4):46.
+
+\bibitem[Zhang et~al., 2015]{zhang2015character}
+Zhang, X., Zhao, J., and LeCun, Y. (2015).
+\newblock Character-level convolutional networks for text classification.
+\newblock {\em Advances in neural information processing systems}, 28.
+
+\bibitem[Zheng et~al., 2024]{zheng2024large}
+Zheng, Y., Gan, W., Chen, Z., Qi, Z., Liang, Q., and Yu, P.~S. (2024).
+\newblock Large language models for medicine: A survey.
+\newblock {\em arXiv preprint arXiv:2405.13055}.
+
+\bibitem[Zhou et~al., 2023a]{zhou2023emerging}
+Zhou, G., Xie, S., Hao, G., Chen, S., Huang, B., Xu, X., Wang, C., Zhu, L.,
+  Yao, L., and Zhang, K. (2023a).
+\newblock Emerging synergies in causality and deep generative models: A survey.
+\newblock {\em arXiv preprint arXiv:2301.12351}.
+
+\bibitem[Zhou et~al., 2023b]{zhou2023skingpt}
+Zhou, J., He, X., Sun, L., Xu, J., Chen, X., Chu, Y., Zhou, L., Liao, X.,
+  Zhang, B., and Gao, X. (2023b).
+\newblock Skingpt-4: an interactive dermatology diagnostic system with visual
+  large language model.
+\newblock {\em arXiv preprint arXiv:2304.10691}.
+
+\bibitem[Zhu et~al., 2021]{zhu2021dsi}
+Zhu, M., Chen, Z., and Yuan, Y. (2021).
+\newblock Dsi-net: Deep synergistic interaction network for joint
+  classification and segmentation with endoscope images.
+\newblock {\em IEEE Transactions on Medical Imaging}, 40(12):3315--3325.
+
+\end{thebibliography}

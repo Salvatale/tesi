@@ -1,0 +1,54 @@
+This is BibTeX, Version 0.99d (TeX Live 2022/dev/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: Tesi.aux
+A level-1 auxiliary file: capitoli/introduzione.aux
+A level-1 auxiliary file: capitoli/capitolo1.aux
+A level-1 auxiliary file: capitoli/capitolo2.aux
+A level-1 auxiliary file: capitoli/capitolo3.aux
+A level-1 auxiliary file: capitoli/conclusione.aux
+The style file: apalike.bst
+A level-1 auxiliary file: capitoli/appendice2.aux
+Database file #1: ./Bibliografia.bib
+Warning--empty journal in urman2023silence
+You've used 115 entries,
+            1935 wiz_defined-function locations,
+            1077 strings with 30498 characters,
+and the built_in function-call counts, 55192 in all, are:
+= -- 5029
+> -- 3675
+< -- 38
++ -- 1367
+- -- 1336
+* -- 5074
+:= -- 9937
+add.period$ -- 347
+call.type$ -- 115
+change.case$ -- 1221
+chr.to.int$ -- 110
+cite$ -- 116
+duplicate$ -- 1731
+empty$ -- 2977
+format.name$ -- 1475
+if$ -- 10351
+int.to.chr$ -- 6
+int.to.str$ -- 0
+missing$ -- 114
+newline$ -- 576
+num.names$ -- 345
+pop$ -- 1136
+preamble$ -- 1
+purify$ -- 1222
+quote$ -- 0
+skip$ -- 1363
+stack$ -- 0
+substring$ -- 2776
+swap$ -- 252
+text.length$ -- 16
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 688
+warning$ -- 1
+while$ -- 347
+width$ -- 0
+write$ -- 1450
+(There was 1 warning)
